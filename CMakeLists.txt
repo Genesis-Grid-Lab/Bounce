@@ -1,0 +1,48 @@
+cmake_minimum_required(VERSION 3.5)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# build output directories
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $<0:>${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<0:>${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY $<0:>${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_PDB_OUTPUT_DIRECTORY $<0:>${CMAKE_BINARY_DIR}/lib)
+set(EXECUTABLE_OUTPUT_PATH $<0:>${CMAKE_BINARY_DIR}/bin)
+
+project(Bounce LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_EXTENSIONS ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Options
+set(WINDOW_BACKEND "glfw" CACHE STRING "Window backend: glfw or native")
+set(USE_FETCH_GLFW_DEFAULT OFF)
+if (DEFINED USE_FECTH_GLFW)
+  set(USE_FETCH_GLFW_DEFAULT ${USE_FECTH_GLFW})
+endif()
+option(USE_FETCH_GLFW "Fetch GLFW via FetchContent" ${USE_FETCH_GLFW_DEFAULT})
+
+if(WINDOW_BACKEND STREQUAL "glfw")
+  file(GLOB_RECURSE nativeFile)
+  file(GLOB_RECURSE androidFile)
+  file(GLOB_RECURSE iosFile)
+  file(GLOB_RECURSE glfwFile ${CMAKE_CURRENT_SOURCE_DIR}/src/window/glfw/*.cpp)
+elseif(WINDOW_BACKEND STREQUAL "native")
+  file(GLOB_RECURSE nativeFile ${CMAKE_CURRENT_SOURCE_DIR}/src/window/native/*.cpp)
+  file(GLOB_RECURSE glfwFile)
+  file(GLOB_RECURSE androidFile)
+  file(GLOB_RECURSE iosFile)
+elseif(WINDOW_BACKEND STREQUAL "android")
+  file(GLOB_RECURSE nativeFile)
+  file(GLOB_RECURSE glfwFile)
+  file(GLOB_RECURSE androidFile  ${CMAKE_CURRENT_SOURCE_DIR}/src/window/android/*.cpp)
+  file(GLOB_RECURSE iosFile)
+elseif(WINDOW_BACKEND STREQUAL "ios")
+  file(GLOB_RECURSE nativeFile)
+  file(GLOB_RECURSE glfwFile)
+  file(GLOB_RECURSE androidFile)
+  file(GLOB_RECURSE iosFile  ${CMAKE_CURRENT_SOURCE_DIR}/src/window/ios/*.cpp)
+else()
+  message(FATAL_ERROR "Unknown WINDOW_BACKEND: ${WINDOW_BACKEND}")
+endif()
