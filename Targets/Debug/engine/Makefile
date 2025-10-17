@@ -169,6 +169,30 @@ src/Core/Factory.cpp.s:
 	cd /home/nephilim/Projects/Bounce/Targets/Debug && $(MAKE) $(MAKESILENT) -f engine/CMakeFiles/Engine.dir/build.make engine/CMakeFiles/Engine.dir/src/Core/Factory.cpp.s
 .PHONY : src/Core/Factory.cpp.s
 
+src/Core/Log.o: src/Core/Log.cpp.o
+.PHONY : src/Core/Log.o
+
+# target to build an object file
+src/Core/Log.cpp.o:
+	cd /home/nephilim/Projects/Bounce/Targets/Debug && $(MAKE) $(MAKESILENT) -f engine/CMakeFiles/Engine.dir/build.make engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o
+.PHONY : src/Core/Log.cpp.o
+
+src/Core/Log.i: src/Core/Log.cpp.i
+.PHONY : src/Core/Log.i
+
+# target to preprocess a source file
+src/Core/Log.cpp.i:
+	cd /home/nephilim/Projects/Bounce/Targets/Debug && $(MAKE) $(MAKESILENT) -f engine/CMakeFiles/Engine.dir/build.make engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.i
+.PHONY : src/Core/Log.cpp.i
+
+src/Core/Log.s: src/Core/Log.cpp.s
+.PHONY : src/Core/Log.s
+
+# target to generate assembly for a file
+src/Core/Log.cpp.s:
+	cd /home/nephilim/Projects/Bounce/Targets/Debug && $(MAKE) $(MAKESILENT) -f engine/CMakeFiles/Engine.dir/build.make engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.s
+.PHONY : src/Core/Log.cpp.s
+
 src/Window/GLFW/GlfwWindow.o: src/Window/GLFW/GlfwWindow.cpp.o
 .PHONY : src/Window/GLFW/GlfwWindow.o
 
@@ -208,6 +232,9 @@ help:
 	@echo "... src/Core/Factory.o"
 	@echo "... src/Core/Factory.i"
 	@echo "... src/Core/Factory.s"
+	@echo "... src/Core/Log.o"
+	@echo "... src/Core/Log.i"
+	@echo "... src/Core/Log.s"
 	@echo "... src/Window/GLFW/GlfwWindow.o"
 	@echo "... src/Window/GLFW/GlfwWindow.i"
 	@echo "... src/Window/GLFW/GlfwWindow.s"

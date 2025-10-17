@@ -35,5 +35,6 @@ if (USE_FETCH_GLFW)
 endif()
 
 add_subdirectory(vendor/glm)
+add_subdirectory(vendor/spdlog)
 add_subdirectory(engine)
 add_subdirectory(app)

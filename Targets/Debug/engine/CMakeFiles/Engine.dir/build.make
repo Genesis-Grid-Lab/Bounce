@@ -103,12 +103,28 @@ engine/CMakeFiles/Engine.dir/src/Core/Factory.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Engine.dir/src/Core/Factory.cpp.s"
 	cd /home/nephilim/Projects/Bounce/Targets/Debug/engine && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -S /home/nephilim/Projects/Bounce/engine/src/Core/Factory.cpp -o CMakeFiles/Engine.dir/src/Core/Factory.cpp.s
 
+engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o: engine/CMakeFiles/Engine.dir/flags.make
+engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o: /home/nephilim/Projects/Bounce/engine/src/Core/Log.cpp
+engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o: engine/CMakeFiles/Engine.dir/cmake_pch.hxx
+engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o: engine/CMakeFiles/Engine.dir/cmake_pch.hxx.gch
+engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o: engine/CMakeFiles/Engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o"
+	cd /home/nephilim/Projects/Bounce/Targets/Debug/engine && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -MD -MT engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o -MF CMakeFiles/Engine.dir/src/Core/Log.cpp.o.d -o CMakeFiles/Engine.dir/src/Core/Log.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Core/Log.cpp
+
+engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Engine.dir/src/Core/Log.cpp.i"
+	cd /home/nephilim/Projects/Bounce/Targets/Debug/engine && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -E /home/nephilim/Projects/Bounce/engine/src/Core/Log.cpp > CMakeFiles/Engine.dir/src/Core/Log.cpp.i
+
+engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Engine.dir/src/Core/Log.cpp.s"
+	cd /home/nephilim/Projects/Bounce/Targets/Debug/engine && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -S /home/nephilim/Projects/Bounce/engine/src/Core/Log.cpp -o CMakeFiles/Engine.dir/src/Core/Log.cpp.s
+
 engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o: engine/CMakeFiles/Engine.dir/flags.make
 engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o: /home/nephilim/Projects/Bounce/engine/src/Window/GLFW/GlfwWindow.cpp
 engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o: engine/CMakeFiles/Engine.dir/cmake_pch.hxx
 engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o: engine/CMakeFiles/Engine.dir/cmake_pch.hxx.gch
 engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o: engine/CMakeFiles/Engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o"
 	cd /home/nephilim/Projects/Bounce/Targets/Debug/engine && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -MD -MT engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o -MF CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o.d -o CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Window/GLFW/GlfwWindow.cpp
 
 engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.i: cmake_force
@@ -122,6 +138,7 @@ engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.s: cmake_force
 # Object files for target Engine
 Engine_OBJECTS = \
 "CMakeFiles/Engine.dir/src/Core/Factory.cpp.o" \
+"CMakeFiles/Engine.dir/src/Core/Log.cpp.o" \
 "CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o"
 
 # External object files for target Engine
@@ -129,10 +146,11 @@ Engine_EXTERNAL_OBJECTS =
 
 lib/libEngine.a: engine/CMakeFiles/Engine.dir/cmake_pch.hxx.gch
 lib/libEngine.a: engine/CMakeFiles/Engine.dir/src/Core/Factory.cpp.o
+lib/libEngine.a: engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o
 lib/libEngine.a: engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o
 lib/libEngine.a: engine/CMakeFiles/Engine.dir/build.make
 lib/libEngine.a: engine/CMakeFiles/Engine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library ../lib/libEngine.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library ../lib/libEngine.a"
 	cd /home/nephilim/Projects/Bounce/Targets/Debug/engine && $(CMAKE_COMMAND) -P CMakeFiles/Engine.dir/cmake_clean_target.cmake
 	cd /home/nephilim/Projects/Bounce/Targets/Debug/engine && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Engine.dir/link.txt --verbose=$(VERBOSE)
 

@@ -1,2 +1,2 @@
-/usr/bin/ar qc ../lib/libEngine.a CMakeFiles/Engine.dir/src/Core/Factory.cpp.o CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o
+/usr/bin/ar qc ../lib/libEngine.a CMakeFiles/Engine.dir/src/Core/Factory.cpp.o CMakeFiles/Engine.dir/src/Core/Log.cpp.o CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o
 /usr/bin/ranlib ../lib/libEngine.a

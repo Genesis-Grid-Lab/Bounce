@@ -1,5 +1,6 @@
 #include "epch.h"
 #include "Core/Factory.h"
+#include "Core/E_Assert.h"
 
 //temp
 #include "Window/GLFW/GlfwWindow.h"
@@ -27,7 +28,7 @@ Scope<IWindow> Factory::CreateWindow() {
     return CreateScope<GlfwWindow>(s_Desc);
   }
 
-  // static_assert(false, "No window backend selected");
+  E_CORE_ASSERT(false, "No window backend selected");
   return nullptr;
 }
 }

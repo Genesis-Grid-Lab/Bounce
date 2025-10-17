@@ -2,11 +2,14 @@
 #include "Core/FactoryDesc.h"
 #include "Core/Types.h"
 #include "Window/IWindow.h"
+#include "Core/Log.h"
 #include <iostream>
 
 using namespace Engine;
 
 int main() {
+  Log::Init();
+  E_CORE_INFO("Starting engine");
   FactoryDesc desc;
   desc.Title = "App";
   desc.DisplaySize = {200, 200};

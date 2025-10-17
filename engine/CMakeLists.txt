@@ -1,5 +1,13 @@
 project(Engine LANGUAGES CXX)
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    message(STATUS "Building in Debug mode.")
+    # Add debug-specific flags or definitions here
+    add_compile_definitions(E_DEBUG)
+else()
+    message(STATUS "Building in Release or other mode.")
+endif()
+
 if(WINDOW_BACKEND_GLFW)
   file(GLOB_RECURSE nativeFile)
   file(GLOB_RECURSE androidFile)
@@ -40,10 +48,12 @@ target_precompile_headers(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc
 
 target_include_directories(${PROJECT_NAME} PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
   glfw
+  spdlog
 )
 
 # copy data

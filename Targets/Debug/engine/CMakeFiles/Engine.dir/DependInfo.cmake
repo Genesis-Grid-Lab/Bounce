@@ -12,6 +12,8 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx" "engine/CMakeFiles/Engine.dir/cmake_pch.hxx.gch" "gcc" "engine/CMakeFiles/Engine.dir/cmake_pch.hxx.gch.d"
   "/home/nephilim/Projects/Bounce/engine/src/Core/Factory.cpp" "engine/CMakeFiles/Engine.dir/src/Core/Factory.cpp.o" "gcc" "engine/CMakeFiles/Engine.dir/src/Core/Factory.cpp.o.d"
   "/home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx" "engine/CMakeFiles/Engine.dir/src/Core/Factory.cpp.o" "gcc" "engine/CMakeFiles/Engine.dir/src/Core/Factory.cpp.o.d"
+  "/home/nephilim/Projects/Bounce/engine/src/Core/Log.cpp" "engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o" "gcc" "engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o.d"
+  "/home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx" "engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o" "gcc" "engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o.d"
   "/home/nephilim/Projects/Bounce/engine/src/Window/GLFW/GlfwWindow.cpp" "engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o" "gcc" "engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o.d"
   "/home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx" "engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o" "gcc" "engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o.d"
   )

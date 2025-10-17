@@ -1,1 +1,1 @@
-/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/Game.dir/link.d CMakeFiles/Game.dir/src/main.cpp.o -o ../bin/Game  ../lib/libEngine.a -lglfw
+/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/Game.dir/link.d CMakeFiles/Game.dir/src/main.cpp.o -o ../bin/Game  ../lib/libEngine.a -lglfw ../lib/libspdlogd.a

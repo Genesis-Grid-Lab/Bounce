@@ -14,7 +14,7 @@
 	#else
 		#error "Platform doesn't support debugbreak yet!"
 	#endif
-	#define E_ENABLE_ASSERTS
+	/* #define E_ENABLE_ASSERTS */
 #else
 	#define E_DEBUGBREAK()
 #endif

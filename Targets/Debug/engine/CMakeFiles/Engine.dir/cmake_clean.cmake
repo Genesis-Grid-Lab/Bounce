@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Engine.dir/cmake_pch.hxx.gch.d"
   "CMakeFiles/Engine.dir/src/Core/Factory.cpp.o"
   "CMakeFiles/Engine.dir/src/Core/Factory.cpp.o.d"
+  "CMakeFiles/Engine.dir/src/Core/Log.cpp.o"
+  "CMakeFiles/Engine.dir/src/Core/Log.cpp.o.d"
   "CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o"
   "CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o.d"
 )

@@ -64,24 +64,28 @@ CMAKE_BINARY_DIR = /home/nephilim/Projects/Bounce/Targets/Debug
 
 # The main recursive "all" target.
 all: vendor/glm/all
+all: vendor/spdlog/all
 all: engine/all
 all: app/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: vendor/glm/codegen
+codegen: vendor/spdlog/codegen
 codegen: engine/codegen
 codegen: app/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
 preinstall: vendor/glm/preinstall
+preinstall: vendor/spdlog/preinstall
 preinstall: engine/preinstall
 preinstall: app/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: vendor/glm/clean
+clean: vendor/spdlog/clean
 clean: engine/clean
 clean: app/clean
 .PHONY : clean
@@ -163,18 +167,69 @@ vendor/glm/glm/clean:
 .PHONY : vendor/glm/glm/clean
 
 #=============================================================================
+# Directory level rules for directory vendor/spdlog
+
+# Recursive "all" directory target.
+vendor/spdlog/all: vendor/spdlog/CMakeFiles/spdlog.dir/all
+.PHONY : vendor/spdlog/all
+
+# Recursive "codegen" directory target.
+vendor/spdlog/codegen: vendor/spdlog/CMakeFiles/spdlog.dir/codegen
+.PHONY : vendor/spdlog/codegen
+
+# Recursive "preinstall" directory target.
+vendor/spdlog/preinstall:
+.PHONY : vendor/spdlog/preinstall
+
+# Recursive "clean" directory target.
+vendor/spdlog/clean: vendor/spdlog/CMakeFiles/spdlog.dir/clean
+.PHONY : vendor/spdlog/clean
+
+#=============================================================================
+# Target rules for target vendor/spdlog/CMakeFiles/spdlog.dir
+
+# All Build rule for target.
+vendor/spdlog/CMakeFiles/spdlog.dir/all:
+	$(MAKE) $(MAKESILENT) -f vendor/spdlog/CMakeFiles/spdlog.dir/build.make vendor/spdlog/CMakeFiles/spdlog.dir/depend
+	$(MAKE) $(MAKESILENT) -f vendor/spdlog/CMakeFiles/spdlog.dir/build.make vendor/spdlog/CMakeFiles/spdlog.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=9,10,11,12,13,14,15,16 "Built target spdlog"
+.PHONY : vendor/spdlog/CMakeFiles/spdlog.dir/all
+
+# Build rule for subdir invocation for target.
+vendor/spdlog/CMakeFiles/spdlog.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles 8
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vendor/spdlog/CMakeFiles/spdlog.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles 0
+.PHONY : vendor/spdlog/CMakeFiles/spdlog.dir/rule
+
+# Convenience name for target.
+spdlog: vendor/spdlog/CMakeFiles/spdlog.dir/rule
+.PHONY : spdlog
+
+# codegen rule for target.
+vendor/spdlog/CMakeFiles/spdlog.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f vendor/spdlog/CMakeFiles/spdlog.dir/build.make vendor/spdlog/CMakeFiles/spdlog.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=9,10,11,12,13,14,15,16 "Finished codegen for target spdlog"
+.PHONY : vendor/spdlog/CMakeFiles/spdlog.dir/codegen
+
+# clean rule for target.
+vendor/spdlog/CMakeFiles/spdlog.dir/clean:
+	$(MAKE) $(MAKESILENT) -f vendor/spdlog/CMakeFiles/spdlog.dir/build.make vendor/spdlog/CMakeFiles/spdlog.dir/clean
+.PHONY : vendor/spdlog/CMakeFiles/spdlog.dir/clean
+
+#=============================================================================
 # Target rules for target engine/CMakeFiles/Engine.dir
 
 # All Build rule for target.
-engine/CMakeFiles/Engine.dir/all:
+engine/CMakeFiles/Engine.dir/all: vendor/spdlog/CMakeFiles/spdlog.dir/all
 	$(MAKE) $(MAKESILENT) -f engine/CMakeFiles/Engine.dir/build.make engine/CMakeFiles/Engine.dir/depend
 	$(MAKE) $(MAKESILENT) -f engine/CMakeFiles/Engine.dir/build.make engine/CMakeFiles/Engine.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=1,2,3,4 "Built target Engine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=1,2,3,4,5 "Built target Engine"
 .PHONY : engine/CMakeFiles/Engine.dir/all
 
 # Build rule for subdir invocation for target.
 engine/CMakeFiles/Engine.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles 13
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 engine/CMakeFiles/Engine.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles 0
 .PHONY : engine/CMakeFiles/Engine.dir/rule
@@ -186,7 +241,7 @@ Engine: engine/CMakeFiles/Engine.dir/rule
 # codegen rule for target.
 engine/CMakeFiles/Engine.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f engine/CMakeFiles/Engine.dir/build.make engine/CMakeFiles/Engine.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target Engine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=1,2,3,4,5 "Finished codegen for target Engine"
 .PHONY : engine/CMakeFiles/Engine.dir/codegen
 
 # clean rule for target.
@@ -198,15 +253,16 @@ engine/CMakeFiles/Engine.dir/clean:
 # Target rules for target app/CMakeFiles/Game.dir
 
 # All Build rule for target.
+app/CMakeFiles/Game.dir/all: vendor/spdlog/CMakeFiles/spdlog.dir/all
 app/CMakeFiles/Game.dir/all: engine/CMakeFiles/Engine.dir/all
 	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/Game.dir/build.make app/CMakeFiles/Game.dir/depend
 	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/Game.dir/build.make app/CMakeFiles/Game.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=5,6,7 "Built target Game"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=6,7,8 "Built target Game"
 .PHONY : app/CMakeFiles/Game.dir/all
 
 # Build rule for subdir invocation for target.
 app/CMakeFiles/Game.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles 16
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/CMakeFiles/Game.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles 0
 .PHONY : app/CMakeFiles/Game.dir/rule
@@ -218,7 +274,7 @@ Game: app/CMakeFiles/Game.dir/rule
 # codegen rule for target.
 app/CMakeFiles/Game.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/Game.dir/build.make app/CMakeFiles/Game.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=5,6,7 "Finished codegen for target Game"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=6,7,8 "Finished codegen for target Game"
 .PHONY : app/CMakeFiles/Game.dir/codegen
 
 # clean rule for target.

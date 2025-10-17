@@ -115,6 +115,7 @@ bin/Game: app/CMakeFiles/Game.dir/src/main.cpp.o
 bin/Game: app/CMakeFiles/Game.dir/build.make
 bin/Game: app/CMakeFiles/Game.dir/compiler_depend.ts
 bin/Game: lib/libEngine.a
+bin/Game: lib/libspdlogd.a
 bin/Game: app/CMakeFiles/Game.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/nephilim/Projects/Bounce/Targets/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable ../bin/Game"
 	cd /home/nephilim/Projects/Bounce/Targets/Debug/app && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Game.dir/link.txt --verbose=$(VERBOSE)
