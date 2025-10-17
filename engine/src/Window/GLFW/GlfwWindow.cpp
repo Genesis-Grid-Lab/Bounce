@@ -1,4 +1,5 @@
 #include "epch.h"
+#include "Core/E_Assert.h"
 #include <GLFW/glfw3.h>
 #include "Window/GLFW/GlfwWindow.h"
 
@@ -36,7 +37,7 @@ namespace Engine {
     if(s_glfwRefCount++ == 0){
       if(!glfwInit()){
 	s_glfwRefCount--;
-	throw std::runtime_error("glfwInit failed");
+        E_CORE_ASSERT(false, "glfwInit failed");
       }
     }
 
@@ -60,7 +61,8 @@ namespace Engine {
 
     if(!m_Window){
         if(--s_glfwRefCount == 0) glfwTerminate();
-        throw std::runtime_error("glfwCreateWindow failed");
+        E_CORE_ERROR("glfwCreateWindow failed");
+
     }
 
     // Store pointer for callbacks

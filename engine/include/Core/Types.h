@@ -14,10 +14,13 @@
 	#else
 		#error "Platform doesn't support debugbreak yet!"
 	#endif
-	/* #define E_ENABLE_ASSERTS */
+	#define E_ENABLE_ASSERTS
 #else
 	#define E_DEBUGBREAK()
 #endif
+
+#define E_EXPAND_MACRO(x) x
+#define E_STRINGIFY_MACRO(x) #x
 
 #ifdef E_PLATFORM_WINDOWS
     #ifndef NOMINMAX

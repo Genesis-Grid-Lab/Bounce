@@ -1,4 +1,6 @@
 .cache/
+.vscode/
+Targets/
 # Prerequisites
 *.d
 

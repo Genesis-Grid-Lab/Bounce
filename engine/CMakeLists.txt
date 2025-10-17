@@ -49,10 +49,12 @@ target_precompile_headers(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc
 target_include_directories(${PROJECT_NAME} PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
+  ${CMAKE_SOURCE_DIR}/vendor/glm
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
   glfw
+  glm
   spdlog
 )
 

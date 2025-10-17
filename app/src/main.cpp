@@ -16,7 +16,7 @@ int main() {
   desc.Window_API = WindowAPI::GLFW;
   
   Factory::SetDesc(desc);
-  Scope<IWindow> window = Factory::CreateWindow();
+  Scope<IWindow> window = Factory::NewWindow();
 
   while (!window->ShouldClose()) {
     window->PollEvents();
