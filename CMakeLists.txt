@@ -15,6 +15,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+include(FetchContent)
+
 # Options
 set(WINDOW_BACKEND "glfw" CACHE STRING "Window backend: glfw or native")
 set(USE_FETCH_GLFW_DEFAULT OFF)
@@ -23,26 +25,15 @@ if (DEFINED USE_FECTH_GLFW)
 endif()
 option(USE_FETCH_GLFW "Fetch GLFW via FetchContent" ${USE_FETCH_GLFW_DEFAULT})
 
-if(WINDOW_BACKEND STREQUAL "glfw")
-  file(GLOB_RECURSE nativeFile)
-  file(GLOB_RECURSE androidFile)
-  file(GLOB_RECURSE iosFile)
-  file(GLOB_RECURSE glfwFile ${CMAKE_CURRENT_SOURCE_DIR}/src/window/glfw/*.cpp)
-elseif(WINDOW_BACKEND STREQUAL "native")
-  file(GLOB_RECURSE nativeFile ${CMAKE_CURRENT_SOURCE_DIR}/src/window/native/*.cpp)
-  file(GLOB_RECURSE glfwFile)
-  file(GLOB_RECURSE androidFile)
-  file(GLOB_RECURSE iosFile)
-elseif(WINDOW_BACKEND STREQUAL "android")
-  file(GLOB_RECURSE nativeFile)
-  file(GLOB_RECURSE glfwFile)
-  file(GLOB_RECURSE androidFile  ${CMAKE_CURRENT_SOURCE_DIR}/src/window/android/*.cpp)
-  file(GLOB_RECURSE iosFile)
-elseif(WINDOW_BACKEND STREQUAL "ios")
-  file(GLOB_RECURSE nativeFile)
-  file(GLOB_RECURSE glfwFile)
-  file(GLOB_RECURSE androidFile)
-  file(GLOB_RECURSE iosFile  ${CMAKE_CURRENT_SOURCE_DIR}/src/window/ios/*.cpp)
-else()
-  message(FATAL_ERROR "Unknown WINDOW_BACKEND: ${WINDOW_BACKEND}")
+if (USE_FETCH_GLFW)
+  FetchContent_Declare(
+    glfw
+    GIT_REPOSITORY https://github.com/glfw/glfw.git
+    GIT_TAG 3.4
+  )
+  FetchContent_MakeAvailable(glfw)
 endif()
+
+add_subdirectory(vendor/glm)
+add_subdirectory(engine)
+add_subdirectory(app)

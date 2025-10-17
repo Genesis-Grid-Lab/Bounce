@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Bounce/engine/include -g -std=gnu++20 -Winvalid-pch -x c++-header -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/cmake_pch.hxx.gch -c /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx.cxx",
+  "file": "/home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx.cxx",
+  "output": "engine/CMakeFiles/Engine.dir/cmake_pch.hxx.gch"
+},
+{
+  "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Bounce/engine/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Core/Factory.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Core/Factory.cpp",
+  "file": "/home/nephilim/Projects/Bounce/engine/src/Core/Factory.cpp",
+  "output": "engine/CMakeFiles/Engine.dir/src/Core/Factory.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Bounce/engine/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Window/GLFW/GlfwWindow.cpp",
+  "file": "/home/nephilim/Projects/Bounce/engine/src/Window/GLFW/GlfwWindow.cpp",
+  "output": "engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/app",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Bounce/app/include -I/home/nephilim/Projects/Bounce/engine/include -g -std=gnu++20 -Winvalid-pch -x c++-header -include /home/nephilim/Projects/Bounce/Targets/Debug/app/CMakeFiles/Game.dir/cmake_pch.hxx -o CMakeFiles/Game.dir/cmake_pch.hxx.gch -c /home/nephilim/Projects/Bounce/Targets/Debug/app/CMakeFiles/Game.dir/cmake_pch.hxx.cxx",
+  "file": "/home/nephilim/Projects/Bounce/Targets/Debug/app/CMakeFiles/Game.dir/cmake_pch.hxx.cxx",
+  "output": "app/CMakeFiles/Game.dir/cmake_pch.hxx.gch"
+},
+{
+  "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/app",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Bounce/app/include -I/home/nephilim/Projects/Bounce/engine/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/app/CMakeFiles/Game.dir/cmake_pch.hxx -o CMakeFiles/Game.dir/src/main.cpp.o -c /home/nephilim/Projects/Bounce/app/src/main.cpp",
+  "file": "/home/nephilim/Projects/Bounce/app/src/main.cpp",
+  "output": "app/CMakeFiles/Game.dir/src/main.cpp.o"
+}
+]

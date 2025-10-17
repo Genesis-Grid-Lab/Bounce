@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/nephilim/Projects/Bounce/Targets/Debug/cmake_install.cmake",
+		"/home/nephilim/Projects/Bounce/Targets/Debug/vendor/glm/cmake_install.cmake",
+		"/home/nephilim/Projects/Bounce/Targets/Debug/vendor/glm/glm/cmake_install.cmake",
+		"/home/nephilim/Projects/Bounce/Targets/Debug/engine/cmake_install.cmake",
+		"/home/nephilim/Projects/Bounce/Targets/Debug/app/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
