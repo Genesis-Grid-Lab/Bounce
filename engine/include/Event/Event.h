@@ -34,6 +34,9 @@ enum class EventType : uint16_t {
     float dpr;
   };
 
+  struct EWindowClose {
+  };  
+
   struct EContentScale {
     float dpr;
   };

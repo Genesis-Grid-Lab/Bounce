@@ -47,7 +47,7 @@ public:
   void Emit(const EMouseMove &e) { call(e, m_OnMouseMove); }
   void Emit(const EMouseWheel &e) { call(e, m_OnMouseWheel); }
 
-  void EmitClose() { call(dummy, m_OnWindowClose); }
+  void EmitClose() { call(EWindowClose(), m_OnWindowClose); }
 
 public:
   int OnKeyDown(Handler<EKey> cb)   { m_OnKeyDown.emplace_back(std::move(cb)); return (int)m_OnKeyDown.size()-1; }
@@ -80,7 +80,7 @@ private:
   std::vector<Handler<EMouseButton>> m_OnMouseDown, m_OnMouseUp;
   std::vector<Handler<EMouseMove>> m_OnMouseMove;
   std::vector<Handler<EMouseWheel>> m_OnMouseWheel;
-  std::vector<std::function<void(const int &)>> m_OnWindowClose;
+  std::vector<Handler<EWindowClose>> m_OnWindowClose;
   // TODO: add touch  
   const int dummy = 0;
 };
@@ -97,4 +97,6 @@ inline std::vector<EventBus::Handler<EMouseWheel>> &
 EventBus::getVec<EMouseWheel>() {
   return m_OnMouseWheel;
 }
+
+ template<> inline std::vector<EventBus::Handler<EWindowClose>>& EventBus::getVec<EWindowClose>() { return m_OnWindowClose; }
 }

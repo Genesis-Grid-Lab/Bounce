@@ -1,1 +1,30 @@
-[08:44:02] [info] Engine: Starting engine
+[06:05:16] [info] Engine: [APPLICATION] Starting
+[06:05:16] [info] Engine: available extensions:
+[06:05:16] [info] Engine: VK_KHR_device_group_creation
+[06:05:16] [info] Engine: VK_KHR_display
+[06:05:16] [info] Engine: VK_KHR_external_fence_capabilities
+[06:05:16] [info] Engine: VK_KHR_external_memory_capabilities
+[06:05:16] [info] Engine: VK_KHR_external_semaphore_capabilities
+[06:05:16] [info] Engine: VK_KHR_get_display_properties2
+[06:05:16] [info] Engine: VK_KHR_get_physical_device_properties2
+[06:05:16] [info] Engine: VK_KHR_get_surface_capabilities2
+[06:05:16] [info] Engine: VK_KHR_surface
+[06:05:16] [info] Engine: VK_KHR_surface_protected_capabilities
+[06:05:16] [info] Engine: VK_KHR_wayland_surface
+[06:05:16] [info] Engine: VK_KHR_xcb_surface
+[06:05:16] [info] Engine: VK_KHR_xlib_surface
+[06:05:16] [info] Engine: VK_EXT_acquire_drm_display
+[06:05:16] [info] Engine: VK_EXT_acquire_xlib_display
+[06:05:16] [info] Engine: VK_EXT_debug_report
+[06:05:16] [info] Engine: VK_EXT_debug_utils
+[06:05:16] [info] Engine: VK_EXT_direct_mode_display
+[06:05:16] [info] Engine: VK_EXT_display_surface_counter
+[06:05:16] [info] Engine: VK_EXT_headless_surface
+[06:05:16] [info] Engine: VK_EXT_surface_maintenance1
+[06:05:16] [info] Engine: VK_EXT_swapchain_colorspace
+[06:05:16] [info] Engine: VK_KHR_portability_enumeration
+[06:05:16] [info] Engine: VK_LUNARG_direct_driver_loading
+[06:05:16] [info] Engine: [APPLICATION] Pushing layer
+[06:05:16] [info] APP: OnAttach()
+[06:05:18] [info] Engine: [APPLICATION] Closing
+[06:05:18] [info] Engine: [APPLICATION] Shutting down

@@ -1,6 +1,8 @@
 .cache/
 .vscode/
 Targets/
+Targets/Debug/
+Targets/Debug/CMakeCache.txt
 # Prerequisites
 *.d
 

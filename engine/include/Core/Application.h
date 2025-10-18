@@ -7,6 +7,9 @@
 #include "Core/LayerStack.h"
 // #include "Event/EventBus.h"
 
+// temp
+#include <vulkan/vulkan.h>
+
 int main(int argc, char** argv);
 
 namespace Engine {
@@ -53,6 +56,14 @@ namespace Engine {
         std::queue<LayerAction> m_LayerActionQueue;        
     private:
         friend int ::main(int argc, char** argv);
-        static Application* s_Instance;
+        static Application *s_Instance;
+
+      // temp
+    private:
+      void createInstance();
+      void setupDebugMessenger();
+      void pickPhysicalDevice();
+      VkInstance instance;
+      VkDebugUtilsMessengerEXT debugMessenger;
     };
 }
