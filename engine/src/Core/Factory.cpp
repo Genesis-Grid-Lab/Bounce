@@ -22,7 +22,7 @@ void Factory::SetDesc(const FactoryDesc& desc){
   s_Desc = desc;
 }
 
-Scope<IWindow> Factory::NewWindow() {
+Scope<Window> Factory::NewWindow() {
   switch(s_Desc.Window_API){
   case WindowAPI::GLFW:
     return CreateScope<GlfwWindow>(s_Desc);

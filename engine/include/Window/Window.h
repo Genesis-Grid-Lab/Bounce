@@ -5,12 +5,12 @@
 
 namespace Engine {
 
-  class IWindow{
+  class Window{
   public:
     using CloseCallback = std::function<void()>;
     using ResizeCallback =
       std::function<void(int fbWidth, int fbHeight, float dpr)>;
-    virtual ~IWindow() = default;
+    virtual ~Window() = default;
     virtual WindowAPI API() = 0;
     virtual void* Handle() const = 0;
     

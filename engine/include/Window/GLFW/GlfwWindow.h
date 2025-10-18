@@ -1,9 +1,9 @@
-#include "Window/IWindow.h"
+#include "Window/Window.h"
 
 struct GLFWwindow;
 
 namespace Engine{
-  class GlfwWindow : public IWindow {
+  class GlfwWindow : public Window {
   public:
     explicit GlfwWindow(const FactoryDesc &desc);
     ~GlfwWindow() override;

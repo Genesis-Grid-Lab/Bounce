@@ -1,26 +1,21 @@
 #include "Core/Factory.h"
 #include "Core/FactoryDesc.h"
 #include "Core/Types.h"
-#include "Window/IWindow.h"
+#include "Window/Window.h"
 #include "Core/Log.h"
+#include <vulkan/vulkan.h>
 #include <iostream>
+#include "TestApp.h"
 
 using namespace Engine;
 
-int main() {
-  Log::Init();
-  E_CORE_INFO("Starting engine");
-  FactoryDesc desc;
-  desc.Title = "App";
-  desc.DisplaySize = {200, 200};
-  desc.Window_API = WindowAPI::GLFW;
+int main(int argc, char** argv) {
   
-  Factory::SetDesc(desc);
-  Scope<IWindow> window = Factory::NewWindow();
+    auto app = new TestApp();
 
-  while (!window->ShouldClose()) {
-    window->PollEvents();
-    window->SwapBuffers();
-  }
+    app->Run();
+
+    delete app;
+
   return 0;  
 }

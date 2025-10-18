@@ -50,6 +50,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
   ${CMAKE_SOURCE_DIR}/vendor/glm
+  ${Vulkan_INCLUDE_DIRS}
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
@@ -57,6 +58,15 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   glm
   spdlog
 )
+
+if (Vulkan_FOUND)
+  target_link_libraries(${PROJECT_NAME} PRIVATE Vulkan::Vulkan)
+else()
+  # Using volk (no prototypes from headers)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE VK_NO_PROTOTYPES)
+  target_link_libraries(${PROJECT_NAME} PRIVATE volk)
+  target_include_directories(${PROJECT_NAME} PRIVATE ${vulkan_headers_SOURCE_DIR}/include)
+endif()
 
 # copy data
 if(EXISTS ${CMAKE_SOURCE_DIR}/Data)

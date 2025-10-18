@@ -18,12 +18,38 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(FetchContent)
 
 # Options
+option(USE_SYSTEM_VULKAN "Use system-installed Vulkan loader if available" ON)
 set(WINDOW_BACKEND "glfw" CACHE STRING "Window backend: glfw or native")
 set(USE_FETCH_GLFW_DEFAULT OFF)
 if (DEFINED USE_FECTH_GLFW)
   set(USE_FETCH_GLFW_DEFAULT ${USE_FECTH_GLFW})
 endif()
 option(USE_FETCH_GLFW "Fetch GLFW via FetchContent" ${USE_FETCH_GLFW_DEFAULT})
+
+if (USE_SYSTEM_VULKAN)
+  find_package(Vulkan QUIET)  # provides Vulkan::Vulkan and Vulkan::Headers (on newer CMake/SDKs)
+endif()
+
+if (NOT Vulkan_FOUND)
+  message(STATUS "Vulkan not found. Fetching volk + Vulkan-Headers...")
+
+  # Headers
+  FetchContent_Declare(vulkan_headers
+    GIT_REPOSITORY https://github.com/KhronosGroup/Vulkan-Headers.git
+    # Pin a known-good tag (update as you wish)
+    GIT_TAG v1.3.296
+  )
+  FetchContent_MakeAvailable(vulkan_headers)
+
+  # volk (header-only + tiny lib; auto-loads the system loader at runtime)
+  set(VOLK_PULL_IN_VULKAN       ON  CACHE BOOL "" FORCE)   # makes Vulkan::Headers target
+  set(VOLK_INSTALL              OFF CACHE BOOL "" FORCE)
+  FetchContent_Declare(volk
+    GIT_REPOSITORY https://github.com/zeux/volk.git
+    GIT_TAG v1.3.296
+  )
+  FetchContent_MakeAvailable(volk)
+endif()
 
 if (USE_FETCH_GLFW)
   FetchContent_Declare(
