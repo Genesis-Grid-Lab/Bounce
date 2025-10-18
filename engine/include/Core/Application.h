@@ -81,6 +81,8 @@ namespace Engine {
       void pickPhysicalDevice();
       void createLogicalDevice();
       void createSwapChain();
+      void createImageViews();
+      void createGraphicsPipeline();
       VkInstance instance;
       VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
       VkDevice device;
@@ -90,6 +92,7 @@ namespace Engine {
       VkSurfaceKHR surface;
       VkSwapchainKHR swapChain;
       std::vector<VkImage> swapChainImages;
+      std::vector<VkImageView> swapChainImageViews;
       VkFormat swapChainImageFormat;
       VkExtent2D swapChainExtent;
     private:
