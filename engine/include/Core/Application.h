@@ -12,6 +12,21 @@
 
 int main(int argc, char** argv);
 
+struct QueueFamilyIndices {
+    std::optional<uint32_t> graphicsFamily;
+    std::optional<uint32_t> presentFamily;
+
+    bool isComplete() {
+        return graphicsFamily.has_value() && presentFamily.has_value();
+    }
+};
+
+struct SwapChainSupportDetails {
+    VkSurfaceCapabilitiesKHR capabilities;
+    std::vector<VkSurfaceFormatKHR> formats;
+    std::vector<VkPresentModeKHR> presentModes;
+};
+
 namespace Engine {
 
     enum class LayerActionType {
@@ -62,8 +77,29 @@ namespace Engine {
     private:
       void createInstance();
       void setupDebugMessenger();
+      void createSurface();
       void pickPhysicalDevice();
+      void createLogicalDevice();
+      void createSwapChain();
       VkInstance instance;
+      VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+      VkDevice device;
+      VkQueue graphicsQueue;
+      VkQueue presentQueue;
       VkDebugUtilsMessengerEXT debugMessenger;
+      VkSurfaceKHR surface;
+      VkSwapchainKHR swapChain;
+      std::vector<VkImage> swapChainImages;
+      VkFormat swapChainImageFormat;
+      VkExtent2D swapChainExtent;
+    private:
+      QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
+      bool isDeviceSuitable(VkPhysicalDevice device);
+      int rateDeviceSuitability(VkPhysicalDevice device);
+      bool checkDeviceExtensionSupport(VkPhysicalDevice device);
+      SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device);
+      VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
+      VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
+      VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
     };
 }
