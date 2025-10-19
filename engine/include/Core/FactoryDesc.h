@@ -4,6 +4,7 @@
 
 namespace Engine {
   enum class WindowAPI { None, GLFW, Native, Android, IOS };
+  enum class GraphicsAPI { None, OpenGL, Vulkan, DirectX, Metal};
 
   struct FactoryDesc {
     std::string Title = "";
@@ -17,6 +18,7 @@ namespace Engine {
 
     // Desire API
     WindowAPI Window_API = WindowAPI::None;
+    GraphicsAPI Graphics_API = GraphicsAPI::None;
   };
 
 }

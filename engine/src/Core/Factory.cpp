@@ -1,3 +1,5 @@
+#include "Core/FactoryDesc.h"
+#include "Render/GraphicsDevice.h"
 #include "epch.h"
 #include "Core/Factory.h"
 #include "Core/E_Assert.h"
@@ -13,6 +15,8 @@
 #elif defined(WINDOW_BACKEND_IOS)
   #include "Window/IOS/IosWindow.h"
 #endif
+
+#include "Render/Vulkan/VulkanDevice.h"
 
 namespace Engine {
 
@@ -31,4 +35,14 @@ Scope<Window> Factory::NewWindow() {
   E_CORE_ASSERT(false, "No window backend selected");
   return nullptr;
 }
+
+  Scope<GraphicsDevice> Factory::NewGraphicsDevice(){
+    switch(s_Desc.Graphics_API){
+    case GraphicsAPI::Vulkan:
+      return CreateScope<VulkanDevice>();
+    }
+
+    E_CORE_ASSERT(false, "No graphics backend selected");
+    return nullptr;
+  }
 }

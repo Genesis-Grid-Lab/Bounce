@@ -43,7 +43,8 @@ namespace Engine{
     float m_dpr = 1.0f;
     EventBus m_Events;
 
-    bool  m_Vsync = true;
+    bool m_Vsync = true;
+    bool m_HasGL = false;
 
     CloseCallback m_OnClose;
     ResizeCallback m_OnResize;

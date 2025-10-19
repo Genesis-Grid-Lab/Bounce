@@ -33,15 +33,18 @@ else()
 endif()
 
 
-file(GLOB source ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/*.cpp)
+file(GLOB core ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/*.cpp)
+file(GLOB render ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/*.cpp)
 file(GLOB_RECURSE headers ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
-
+file(GLOB_RECURSE vulkanFiles ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/Vulkan/*.cpp)
 add_library(${PROJECT_NAME}
-    ${source} ${headers}
-    ${glfwFile}
-    ${nativeFile}
-    ${iosFile}
-    ${androidFile}
+  ${core} ${headers}
+  ${render}
+  ${glfwFile}
+  ${nativeFile}
+  ${iosFile}
+  ${androidFile}
+  ${vulkanFiles}
   )
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/epch.h)

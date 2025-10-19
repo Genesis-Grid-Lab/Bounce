@@ -41,7 +41,17 @@ namespace Engine {
       }
     }
 
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    if (desc.Graphics_API == GraphicsAPI::OpenGL) {
+      glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+      glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+      glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+      glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#ifdef __APPLE__
+      glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+#endif
+    } else {
+      glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    }
     glfwWindowHint(GLFW_RESIZABLE, desc.Resizeable ? GLFW_TRUE : GLFW_FALSE);
 
     int initialW = desc.DisplaySize.x;
@@ -85,6 +95,8 @@ namespace Engine {
     // Compute initial DPR
     updateDevicePixelRatio();
 
+    m_HasGL = (desc.Graphics_API == GraphicsAPI::OpenGL);
+
   }
 
   GlfwWindow::~GlfwWindow(){
@@ -107,7 +119,7 @@ namespace Engine {
   }
 
   void GlfwWindow::SwapBuffers() {
-    // if(m_HasGL) glfwSwapBuffers(m_Window);
+    if(m_HasGL) glfwSwapBuffers(m_Window);
   }
 
   glm::vec2 GlfwWindow::GetWindowSize() const {
@@ -140,7 +152,7 @@ namespace Engine {
   }
 
   void GlfwWindow::SetSwapInterval(int interval) {
-    // if (m_HasGL) glfwSwapInterval(interval);
+    if (m_HasGL) glfwSwapInterval(interval);
   }
 
   void GlfwWindow::updateDevicePixelRatio() {
