@@ -15,7 +15,7 @@ public:
 
   static void EnableBlend(bool e);
 
-  static void DrawIndexed(uint32_t indexCount);
+  static void DrawIndexed(const VertexArray& vao,uint32_t indexCount);
 private:
   static Scope<RendererAPI> s_API;
 };

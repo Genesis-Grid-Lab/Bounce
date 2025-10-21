@@ -10,6 +10,7 @@ namespace Engine {
     using CloseCallback = std::function<void()>;
     using ResizeCallback =
       std::function<void(int fbWidth, int fbHeight, float dpr)>;
+    using GLProc = void* (*)(const char*);
     virtual ~Window() = default;
     virtual WindowAPI API() = 0;
     virtual void* Handle() const = 0;
@@ -27,6 +28,7 @@ namespace Engine {
 
     virtual EventBus &Events() = 0;
 
+    virtual GLProc GetGLProcLoader() const { return nullptr; }
     virtual void SetSwapInterval(int interval) { (void)interval; }
     virtual bool IsVsyncEnabled() const { return false; }    
   private:    

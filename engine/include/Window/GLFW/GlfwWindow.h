@@ -24,6 +24,7 @@ namespace Engine{
 
     EventBus &Events() override { return m_Events; }
 
+    GLProc GetGLProcLoader() const override;
     void SetSwapInterval(int interval) override;
     bool IsVsyncEnabled() const override { return m_Vsync; }
 

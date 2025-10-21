@@ -17,6 +17,11 @@
 #endif
 
 #include "Render/Vulkan/VulkanDevice.h"
+#include "Render/glad/GLDevice.h"
+#include "Render/glad/GLShader.h"
+#include "Render/glad/GLDevice.h"
+#include "Render/glad/GLVertexArray.h"
+#include "Render/glad/GLBuffer.h"
 
 namespace Engine {
 
@@ -40,6 +45,38 @@ Scope<Window> Factory::NewWindow() {
     switch(s_Desc.Graphics_API){
     case GraphicsAPI::Vulkan:
       return CreateScope<VulkanDevice>();
+    case GraphicsAPI::OpenGL:
+      return CreateScope<GLDevice>();
+    }
+
+    E_CORE_ASSERT(false, "No graphics backend selected");
+    return nullptr;
+  }
+
+  Ref<Shader> Factory::CreateShader(const std::string& filepath){
+    switch(s_Desc.Graphics_API){
+      case GraphicsAPI::OpenGL:
+        return CreateRef<GLShader>(filepath);
+    }
+
+    E_CORE_ASSERT(false, "No graphics backend selected");
+    return nullptr;
+  }
+
+  Ref<Buffer> Factory::CreateBuffer(BufferType Type){
+    switch(s_Desc.Graphics_API){
+      case GraphicsAPI::OpenGL:
+        return CreateRef<GLBuffer>(Type);
+    }
+
+    E_CORE_ASSERT(false, "No graphics backend selected");
+    return nullptr;
+  }
+
+  Ref<VertexArray> Factory::CreateVertexArray(){
+    switch(s_Desc.Graphics_API){
+      case GraphicsAPI::OpenGL:
+        return CreateRef<GLVertexArray>();
     }
 
     E_CORE_ASSERT(false, "No graphics backend selected");

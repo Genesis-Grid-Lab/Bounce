@@ -59,7 +59,7 @@ if (USE_FETCH_GLFW)
   )
   FetchContent_MakeAvailable(glfw)
 endif()
-
+add_subdirectory(vendor/glad)
 add_subdirectory(vendor/glm)
 add_subdirectory(vendor/spdlog)
 add_subdirectory(engine)

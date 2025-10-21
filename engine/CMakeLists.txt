@@ -37,6 +37,7 @@ file(GLOB core ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/*.cpp)
 file(GLOB render ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/*.cpp)
 file(GLOB_RECURSE headers ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
 file(GLOB_RECURSE vulkanFiles ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/Vulkan/*.cpp)
+file(GLOB gladFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/glad/*.cpp)
 add_library(${PROJECT_NAME}
   ${core} ${headers}
   ${render}
@@ -45,6 +46,7 @@ add_library(${PROJECT_NAME}
   ${iosFile}
   ${androidFile}
   ${vulkanFiles}
+  ${gladFile}
   )
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/epch.h)
@@ -53,12 +55,14 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
   ${CMAKE_SOURCE_DIR}/vendor/glm
+  ${CMAKE_SOURCE_DIR}/vendor/glad/include
   ${Vulkan_INCLUDE_DIRS}
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
   glfw
   glm
+  glad
   spdlog
 )
 

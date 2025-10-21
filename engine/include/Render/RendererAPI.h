@@ -16,6 +16,6 @@ public:
 
   virtual void EnableBlend(bool enable) = 0;
 
-  virtual void DrawIndexed(uint32_t indexCount) = 0;
+  virtual void DrawIndexed(const class VertexArray& vao,uint32_t indexCount) = 0;
 };
 }

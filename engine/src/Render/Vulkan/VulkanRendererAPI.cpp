@@ -13,6 +13,6 @@ void VulkanRendererAPI::Clear() {}
 
 void VulkanRendererAPI::EnableBlend(bool enable) {}
 
-void VulkanRendererAPI::DrawIndexed(uint32_t indexCount) {}
+void VulkanRendererAPI::DrawIndexed(const class VertexArray& vao,uint32_t indexCount) {}
 
 }

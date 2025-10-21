@@ -151,6 +151,10 @@ namespace Engine {
 #endif
   }
 
+  GlfwWindow::GLProc GlfwWindow::GetGLProcLoader() const {
+    return (GLProc)glfwGetProcAddress;
+  }
+
   void GlfwWindow::SetSwapInterval(int interval) {
     if (m_HasGL) glfwSwapInterval(interval);
   }

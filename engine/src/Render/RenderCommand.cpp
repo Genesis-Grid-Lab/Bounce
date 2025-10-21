@@ -16,6 +16,6 @@ namespace Engine {
   void RenderCommand::SetClearColor(glm::vec4& color){ s_API->SetClearColor(color); }
   void RenderCommand::Clear(){ s_API->Clear(); }
   void RenderCommand::EnableBlend(bool e){ s_API->EnableBlend(e); }
-  void RenderCommand::DrawIndexed(uint32_t n){ s_API->DrawIndexed(n); }
+  void RenderCommand::DrawIndexed(const VertexArray& vao,uint32_t n){ s_API->DrawIndexed(vao,n); }
 
 }

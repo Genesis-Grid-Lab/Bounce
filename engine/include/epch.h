@@ -16,6 +16,8 @@
 #include <optional>
 #include <set>
 
+#include <cctype>
+
 #include <string>
 #include <sstream>
 #include <vector>

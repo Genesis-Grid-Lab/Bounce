@@ -13,6 +13,6 @@ public:
 
   void EnableBlend(bool enable) override;
 
-  void DrawIndexed(uint32_t indexCount) override;
+  void DrawIndexed(const class VertexArray& vao,uint32_t indexCount) override;
 };
 }
