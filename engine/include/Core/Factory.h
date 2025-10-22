@@ -20,6 +20,7 @@ public:
   static Scope<RendererAPI> CreateRendererAPI();
 
   static Ref<Shader> CreateShader(const std::string& filepath);
+  static Ref<Shader> CreateShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
   static Ref<VertexArray> Create();
 
   static Ref<VertexBuffer> Create(uint32_t size);

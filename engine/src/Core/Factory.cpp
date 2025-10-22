@@ -77,6 +77,16 @@ Scope<Window> Factory::NewWindow() {
     return nullptr;
   }
 
+  Ref<Shader> Factory::CreateShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc){
+    switch(s_Desc.Graphics_API){
+      case GraphicsAPI::OpenGL:
+        return CreateRef<GLShader>(name, vertexSrc, fragmentSrc);
+    }
+
+    E_CORE_ASSERT(false, "No graphics backend selected");
+    return nullptr;
+  }
+
   Ref<VertexBuffer> Factory::Create(uint32_t size){
     switch(s_Desc.Graphics_API){
       case GraphicsAPI::OpenGL:
@@ -111,6 +121,16 @@ Scope<Window> Factory::NewWindow() {
     switch(s_Desc.Graphics_API){
       case GraphicsAPI::OpenGL:
         return CreateRef<GLVertexArray>();
+    }
+
+    E_CORE_ASSERT(false, "No graphics backend selected");
+    return nullptr;
+  }
+
+  Ref<IndexBuffer> Factory::Create(uint32_t* indices, uint32_t count){
+    switch(s_Desc.Graphics_API){
+      case GraphicsAPI::OpenGL:
+        return CreateRef<GLIndexBuffer>(indices, count);
     }
 
     E_CORE_ASSERT(false, "No graphics backend selected");

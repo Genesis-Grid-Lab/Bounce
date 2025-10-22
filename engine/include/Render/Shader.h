@@ -7,18 +7,18 @@ namespace Engine {
     class Shader {
     public:
      virtual ~Shader() = default;
-     virtual void Destroy() = 0;
 
-     // Compile and link from two source stings
-     virtual bool CompileFromSource(const char* vs, const char* fs, std::string* outLog = nullptr) = 0;
+    virtual void Bind() const = 0;
+    virtual void Unbind() const = 0;
 
-     virtual void Bind() const = 0;
-     virtual void Unbind() const = 0;
+    virtual void SetInt(const std::string& name, int value) = 0;
+    virtual void SetIntArray(const std::string& name, int* values, uint32_t count) = 0;
+    virtual void SetFloat(const std::string& name, float value) = 0;
+    virtual void SetFloat2(const std::string& name, const glm::vec2& value) = 0;
+    virtual void SetFloat3(const std::string& name, const glm::vec3& value) = 0;
+    virtual void SetFloat4(const std::string& name, const glm::vec4& value) = 0;
+    virtual void SetMat4(const std::string& name, const glm::mat4& value) = 0;
 
-     //uniform helpers
-     virtual void SetFloat(const char* name, float v) = 0;
-     virtual void SetVec2(const char* name, const glm::vec2& v) = 0;
-     virtual void SetMat4(const char* name, const glm::mat4& v) = 0;
-     virtual void SetIntArray(const char* name, const int* v, int count) = 0;
+    virtual const std::string& GetName() const = 0;
     };
 }

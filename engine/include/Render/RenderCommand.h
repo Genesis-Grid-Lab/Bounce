@@ -24,7 +24,7 @@ public:
   //   s_API->EnableBlend(e);
   // }
 
-  static void DrawIndexed(const Ref<VertexArray>& vao,uint32_t indexCount){
+  static void DrawIndexed(const Ref<VertexArray>& vao,uint32_t indexCount = 0){
     s_API->DrawIndexed(vao, indexCount);
   }
 private:
