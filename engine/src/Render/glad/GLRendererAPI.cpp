@@ -25,9 +25,9 @@ namespace Engine {
 	}
 
 	void GLRendererAPI::Init()
-	{		
-
-	#ifdef E_DEBUG
+	{
+        E_CORE_INFO("[RendererAPI] Init");
+#ifdef E_DEBUG
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 		glDebugMessageCallback(OpenGLMessageCallback, nullptr);

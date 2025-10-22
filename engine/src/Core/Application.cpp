@@ -25,6 +25,7 @@ namespace Engine {
     desc.Window_API = WindowAPI::GLFW;
     desc.Graphics_API = GraphicsAPI::OpenGL;
     Factory::SetDesc(desc);
+    E_CORE_INFO("[APPLICATION] Settings desc");
     s_Instance = this;
     m_Window = Factory::NewWindow();
 
@@ -79,6 +80,7 @@ namespace Engine {
 	}
       }
       m_Window->PollEvents();
+      m_Window->SwapBuffers();
 
       while (!m_LayerActionQueue.empty()) {
 	LayerAction action = m_LayerActionQueue.front();

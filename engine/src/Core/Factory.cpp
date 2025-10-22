@@ -27,7 +27,7 @@
 
 namespace Engine {
 
-FactoryDesc Factory::s_Desc = FactoryDesc{};
+FactoryDesc Factory::s_Desc = FactoryDesc{"", {0,0}, false, false, false, WindowAPI::None, GraphicsAPI::OpenGL};
 
 void Factory::SetDesc(const FactoryDesc& desc){
   s_Desc = desc;
@@ -63,7 +63,7 @@ Scope<Window> Factory::NewWindow() {
       return CreateScope<VulkanRendererAPI>();
     }
 
-    // E_CORE_ASSERT(false, "No graphics backend selected");
+    E_CORE_ASSERT(false, "No graphics backend selected");
     return nullptr;
   }
 
