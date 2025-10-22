@@ -1,17 +1,20 @@
 #pragma once
 
-#include <cstddef>
+#include "Buffer.h"
 
 namespace Engine {
 
-    class VertexArray {
-    public:
-     virtual ~VertexArray() = default;
-     virtual void Bind() const = 0;
-     virtual void Unbind() const = 0;
+  class VertexArray {
+  public:
+    virtual ~VertexArray() = default;
+    virtual void Bind() const = 0;
+    virtual void Unbind() const = 0;
 
-     // index: shader location; comps: 1..4; type: GL_FLOAT (pass-through as unsigned int)
-    virtual void EnableAttrib(unsigned int index, int comps, unsigned int type,
-                              bool normalized, int stride, std::size_t offset) = 0;
-    };
+    virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) = 0;
+    virtual void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) = 0;
+
+    virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const = 0;
+    virtual const Ref<IndexBuffer>& GetIndexBuffer() const = 0;
+
+  };
 }

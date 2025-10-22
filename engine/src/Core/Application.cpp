@@ -4,6 +4,9 @@
 #include "Core/Factory.h"
 #include "Core/Timestep.h"
 
+#include "Render/RenderCommand.h"
+#include "Render/Renderer.h"
+
 // temp
 #include <GLFW/glfw3.h>
 #include <fstream>
@@ -25,17 +28,20 @@ namespace Engine {
     s_Instance = this;
     m_Window = Factory::NewWindow();
 
-    m_GraphicsDevice = Factory::NewGraphicsDevice();
+    Renderer::Init();
 
     if(!m_GraphicsDevice->Initialize(*m_Window)){
         E_CORE_ERROR("Failed to init Graphics device");
     }
+
+    RenderCommand::Init(Factory::CreateRendererAPI());
     
     m_Window->Events().Subscribe<EWindowResize>([this](const EWindowResize& e) { OnWindowResize(e);});
     m_Window->Events().Subscribe<EWindowClose>([this](const EWindowClose&) { OnWindowClose();});        
   }
 
-  Application::~Application(){
+  Application::~Application() {
+    Renderer::Shutdown();
     E_CORE_INFO("[APPLICATION] Shutting down");
     
   }
@@ -69,6 +75,9 @@ namespace Engine {
       // float time = (float)
       Timestep timestep = m_LastFrameTime;
       // m_LastFrameTime = time;
+      glm::vec4 clearColor = {0.5f, 0.3f, 0.1f, 1.0f};
+      RenderCommand::SetClearColor(clearColor);
+      RenderCommand::Clear();
 
       if(!m_Minimized){
 	for(Layer* layer : m_LayerStack){
@@ -76,9 +85,6 @@ namespace Engine {
 	}
       }
       m_Window->PollEvents();
-      m_Window->SwapBuffers();
-
-      m_GraphicsDevice->EndFrame();
 
       while (!m_LayerActionQueue.empty()) {
 	LayerAction action = m_LayerActionQueue.front();

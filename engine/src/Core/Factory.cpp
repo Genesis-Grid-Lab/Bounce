@@ -1,5 +1,6 @@
 #include "Core/FactoryDesc.h"
 #include "Render/GraphicsDevice.h"
+#include "Render/glad/GLRendererAPI.h"
 #include "epch.h"
 #include "Core/Factory.h"
 #include "Core/E_Assert.h"
@@ -17,6 +18,8 @@
 #endif
 
 #include "Render/Vulkan/VulkanDevice.h"
+#include "Render/Vulkan/VulkanRendererAPI.h"
+
 #include "Render/glad/GLDevice.h"
 #include "Render/glad/GLShader.h"
 #include "Render/glad/GLDevice.h"
@@ -47,6 +50,18 @@ Scope<Window> Factory::NewWindow() {
       return CreateScope<VulkanDevice>();
     case GraphicsAPI::OpenGL:
       return CreateScope<GLDevice>();
+    }
+
+    E_CORE_ASSERT(false, "No graphics backend selected");
+    return nullptr;
+  }
+
+  Scope<RendererAPI> Factory::CreateRendererAPI(){
+    switch(s_Desc.Graphics_API){
+    case GraphicsAPI::OpenGL:
+      return CreateScope<GLRendererAPI>();
+    case GraphicsAPI::Vulkan:
+      return CreateScope<VulkanRendererAPI>();
     }
 
     E_CORE_ASSERT(false, "No graphics backend selected");

@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/Types.h"
+#include "Render/VertexArray.h"
 
 namespace Engine {
 
@@ -16,6 +17,6 @@ public:
 
   virtual void EnableBlend(bool enable) = 0;
 
-  virtual void DrawIndexed(const class VertexArray& vao,uint32_t indexCount) = 0;
+  virtual void DrawIndexed(const Ref<VertexArray>& vao,uint32_t indexCount) = 0;
 };
 }

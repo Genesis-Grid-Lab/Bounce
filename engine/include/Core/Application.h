@@ -47,7 +47,6 @@ namespace Engine {
     void OnWindowResize(const EWindowResize& e);
   private:
     Scope<Window> m_Window;
-    Scope<GraphicsDevice> m_GraphicsDevice;
 
     bool m_Running = true;
     bool m_Minimized = false;

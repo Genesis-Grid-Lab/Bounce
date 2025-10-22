@@ -1,5 +1,11 @@
 [
 {
+  "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/vendor/glad",
+  "command": "/usr/bin/cc  -I/home/nephilim/Projects/Bounce/vendor/glad/include -g -fPIC -o CMakeFiles/glad.dir/src/glad.c.o -c /home/nephilim/Projects/Bounce/vendor/glad/src/glad.c",
+  "file": "/home/nephilim/Projects/Bounce/vendor/glad/src/glad.c",
+  "output": "vendor/glad/CMakeFiles/glad.dir/src/glad.c.o"
+},
+{
   "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/vendor/spdlog",
   "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -g -std=c++20 -o CMakeFiles/spdlog.dir/src/spdlog.cpp.o -c /home/nephilim/Projects/Bounce/vendor/spdlog/src/spdlog.cpp",
   "file": "/home/nephilim/Projects/Bounce/vendor/spdlog/src/spdlog.cpp",
@@ -43,73 +49,115 @@
 },
 {
   "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
-  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -x c++-header -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/cmake_pch.hxx.gch -c /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx.cxx",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -x c++-header -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/cmake_pch.hxx.gch -c /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx.cxx",
   "file": "/home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx.cxx",
   "output": "engine/CMakeFiles/Engine.dir/cmake_pch.hxx.gch"
 },
 {
   "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
-  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Core/Application.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Core/Application.cpp",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Core/Application.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Core/Application.cpp",
   "file": "/home/nephilim/Projects/Bounce/engine/src/Core/Application.cpp",
   "output": "engine/CMakeFiles/Engine.dir/src/Core/Application.cpp.o"
 },
 {
   "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
-  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Core/Factory.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Core/Factory.cpp",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Core/Factory.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Core/Factory.cpp",
   "file": "/home/nephilim/Projects/Bounce/engine/src/Core/Factory.cpp",
   "output": "engine/CMakeFiles/Engine.dir/src/Core/Factory.cpp.o"
 },
 {
   "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
-  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Core/Layer.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Core/Layer.cpp",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Core/Layer.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Core/Layer.cpp",
   "file": "/home/nephilim/Projects/Bounce/engine/src/Core/Layer.cpp",
   "output": "engine/CMakeFiles/Engine.dir/src/Core/Layer.cpp.o"
 },
 {
   "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
-  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Core/LayerStack.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Core/LayerStack.cpp",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Core/LayerStack.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Core/LayerStack.cpp",
   "file": "/home/nephilim/Projects/Bounce/engine/src/Core/LayerStack.cpp",
   "output": "engine/CMakeFiles/Engine.dir/src/Core/LayerStack.cpp.o"
 },
 {
   "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
-  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Core/Log.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Core/Log.cpp",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Core/Log.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Core/Log.cpp",
   "file": "/home/nephilim/Projects/Bounce/engine/src/Core/Log.cpp",
   "output": "engine/CMakeFiles/Engine.dir/src/Core/Log.cpp.o"
 },
 {
   "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
-  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Render/RenderCommand.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Render/RenderCommand.cpp",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Render/RenderCommand.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Render/RenderCommand.cpp",
   "file": "/home/nephilim/Projects/Bounce/engine/src/Render/RenderCommand.cpp",
   "output": "engine/CMakeFiles/Engine.dir/src/Render/RenderCommand.cpp.o"
 },
 {
   "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
-  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Window/GLFW/GlfwWindow.cpp",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Window/GLFW/GlfwWindow.cpp",
   "file": "/home/nephilim/Projects/Bounce/engine/src/Window/GLFW/GlfwWindow.cpp",
   "output": "engine/CMakeFiles/Engine.dir/src/Window/GLFW/GlfwWindow.cpp.o"
 },
 {
   "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
-  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Render/Vulkan/VulkanDevice.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Render/Vulkan/VulkanDevice.cpp",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Render/Vulkan/VulkanBuffer.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Render/Vulkan/VulkanBuffer.cpp",
+  "file": "/home/nephilim/Projects/Bounce/engine/src/Render/Vulkan/VulkanBuffer.cpp",
+  "output": "engine/CMakeFiles/Engine.dir/src/Render/Vulkan/VulkanBuffer.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Render/Vulkan/VulkanDevice.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Render/Vulkan/VulkanDevice.cpp",
   "file": "/home/nephilim/Projects/Bounce/engine/src/Render/Vulkan/VulkanDevice.cpp",
   "output": "engine/CMakeFiles/Engine.dir/src/Render/Vulkan/VulkanDevice.cpp.o"
 },
 {
   "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
-  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Render/Vulkan/VulkanRendererAPI.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Render/Vulkan/VulkanRendererAPI.cpp",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Render/Vulkan/VulkanRendererAPI.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Render/Vulkan/VulkanRendererAPI.cpp",
   "file": "/home/nephilim/Projects/Bounce/engine/src/Render/Vulkan/VulkanRendererAPI.cpp",
   "output": "engine/CMakeFiles/Engine.dir/src/Render/Vulkan/VulkanRendererAPI.cpp.o"
 },
 {
+  "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Render/glad/GLBuffer.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Render/glad/GLBuffer.cpp",
+  "file": "/home/nephilim/Projects/Bounce/engine/src/Render/glad/GLBuffer.cpp",
+  "output": "engine/CMakeFiles/Engine.dir/src/Render/glad/GLBuffer.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Render/glad/GLDevice.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Render/glad/GLDevice.cpp",
+  "file": "/home/nephilim/Projects/Bounce/engine/src/Render/glad/GLDevice.cpp",
+  "output": "engine/CMakeFiles/Engine.dir/src/Render/glad/GLDevice.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Render/glad/GLRendererAPI.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Render/glad/GLRendererAPI.cpp",
+  "file": "/home/nephilim/Projects/Bounce/engine/src/Render/glad/GLRendererAPI.cpp",
+  "output": "engine/CMakeFiles/Engine.dir/src/Render/glad/GLRendererAPI.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Render/glad/GLShader.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Render/glad/GLShader.cpp",
+  "file": "/home/nephilim/Projects/Bounce/engine/src/Render/glad/GLShader.cpp",
+  "output": "engine/CMakeFiles/Engine.dir/src/Render/glad/GLShader.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Render/glad/GLTexture2D.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Render/glad/GLTexture2D.cpp",
+  "file": "/home/nephilim/Projects/Bounce/engine/src/Render/glad/GLTexture2D.cpp",
+  "output": "engine/CMakeFiles/Engine.dir/src/Render/glad/GLTexture2D.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/engine",
+  "command": "/usr/bin/c++ -DE_DEBUG -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -isystem /home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/engine/CMakeFiles/Engine.dir/cmake_pch.hxx -o CMakeFiles/Engine.dir/src/Render/glad/GLVertexArray.cpp.o -c /home/nephilim/Projects/Bounce/engine/src/Render/glad/GLVertexArray.cpp",
+  "file": "/home/nephilim/Projects/Bounce/engine/src/Render/glad/GLVertexArray.cpp",
+  "output": "engine/CMakeFiles/Engine.dir/src/Render/glad/GLVertexArray.cpp.o"
+},
+{
   "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/app",
-  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/app/include -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -g -std=gnu++20 -Winvalid-pch -x c++-header -include /home/nephilim/Projects/Bounce/Targets/Debug/app/CMakeFiles/Game.dir/cmake_pch.hxx -o CMakeFiles/Game.dir/cmake_pch.hxx.gch -c /home/nephilim/Projects/Bounce/Targets/Debug/app/CMakeFiles/Game.dir/cmake_pch.hxx.cxx",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/app/include -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -g -std=gnu++20 -Winvalid-pch -x c++-header -include /home/nephilim/Projects/Bounce/Targets/Debug/app/CMakeFiles/Game.dir/cmake_pch.hxx -o CMakeFiles/Game.dir/cmake_pch.hxx.gch -c /home/nephilim/Projects/Bounce/Targets/Debug/app/CMakeFiles/Game.dir/cmake_pch.hxx.cxx",
   "file": "/home/nephilim/Projects/Bounce/Targets/Debug/app/CMakeFiles/Game.dir/cmake_pch.hxx.cxx",
   "output": "app/CMakeFiles/Game.dir/cmake_pch.hxx.gch"
 },
 {
   "directory": "/home/nephilim/Projects/Bounce/Targets/Debug/app",
-  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/app/include -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/app/CMakeFiles/Game.dir/cmake_pch.hxx -o CMakeFiles/Game.dir/src/main.cpp.o -c /home/nephilim/Projects/Bounce/app/src/main.cpp",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/nephilim/Projects/Bounce/app/include -I/home/nephilim/Projects/Bounce/engine/include -I/home/nephilim/Projects/Bounce/vendor/spdlog/include -I/home/nephilim/Projects/Bounce/vendor/glm -I/home/nephilim/Projects/Bounce/vendor/glad/include -I/home/nephilim/Projects/Bounce/vendor/stb_image -I/home/nephilim/App/Vulkan/1.4.304.1/x86_64/include -I/home/nephilim/Projects/Bounce/vendor/glm/glm/.. -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Bounce/Targets/Debug/app/CMakeFiles/Game.dir/cmake_pch.hxx -o CMakeFiles/Game.dir/src/main.cpp.o -c /home/nephilim/Projects/Bounce/app/src/main.cpp",
   "file": "/home/nephilim/Projects/Bounce/app/src/main.cpp",
   "output": "app/CMakeFiles/Game.dir/src/main.cpp.o"
 }

@@ -56,6 +56,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
   ${CMAKE_SOURCE_DIR}/vendor/glm
   ${CMAKE_SOURCE_DIR}/vendor/glad/include
+  ${CMAKE_SOURCE_DIR}/vendor/stb_image
   ${Vulkan_INCLUDE_DIRS}
 )
 
