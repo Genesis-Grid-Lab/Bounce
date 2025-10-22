@@ -1,4 +1,5 @@
 #include "Window/Window.h"
+#include "Render/GraphicsContext.h"
 
 struct GLFWwindow;
 
@@ -41,6 +42,7 @@ namespace Engine{
     static void scrollCB(GLFWwindow* win, double dx, double dy);
   private:
     GLFWwindow *m_Window = nullptr;
+    Scope<GraphicsContext> m_Context;
     float m_dpr = 1.0f;
     EventBus m_Events;
 

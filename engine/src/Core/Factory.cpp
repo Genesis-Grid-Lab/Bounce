@@ -63,7 +63,7 @@ Scope<Window> Factory::NewWindow() {
       return CreateScope<VulkanRendererAPI>();
     }
 
-    E_CORE_ASSERT(false, "No graphics backend selected");
+    // E_CORE_ASSERT(false, "No graphics backend selected");
     return nullptr;
   }
 

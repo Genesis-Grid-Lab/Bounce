@@ -2,6 +2,7 @@
 #include "Core/E_Assert.h"
 #include <GLFW/glfw3.h>
 #include "Window/GLFW/GlfwWindow.h"
+#include "Core/Factory.h"
 
 static int s_glfwRefCount = 0;
 
@@ -34,17 +35,19 @@ static MouseButton mapMouse(int b) {
 namespace Engine {
 
   GlfwWindow::GlfwWindow(const FactoryDesc& desc){
+    E_CORE_INFO("Creating window {0} ({1}, {2})", desc.Title, desc.DisplaySize.x, desc.DisplaySize.y);
+
     if(s_glfwRefCount++ == 0){
       if(!glfwInit()){
-	s_glfwRefCount--;
+        s_glfwRefCount--;
         E_CORE_ASSERT(false, "glfwInit failed");
       }
     }
 
     if (desc.Graphics_API == GraphicsAPI::OpenGL) {
       glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
-      glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-      glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+      glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+      glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
       glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #ifdef __APPLE__
       glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
@@ -53,6 +56,11 @@ namespace Engine {
       glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     }
     glfwWindowHint(GLFW_RESIZABLE, desc.Resizeable ? GLFW_TRUE : GLFW_FALSE);
+
+    #if defined(E_DEBUG)
+        if (desc.Graphics_API == GraphicsAPI::OpenGL)
+            glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+    #endif
 
     int initialW = desc.DisplaySize.x;
     int initialH = desc.DisplaySize.y;
@@ -74,6 +82,9 @@ namespace Engine {
         E_CORE_ERROR("glfwCreateWindow failed");
 
     }
+
+    m_Context = Factory::Create(m_Window);
+    m_Context->Init();
 
     // Store pointer for callbacks
     glfwSetWindowUserPointer(m_Window, this);
