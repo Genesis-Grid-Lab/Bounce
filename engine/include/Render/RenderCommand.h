@@ -20,9 +20,9 @@ public:
     s_API->Clear();
   }
 
-  static void EnableBlend(bool e) {
-    s_API->EnableBlend(e);
-  }
+  // static void EnableBlend(bool e) {
+  //   s_API->EnableBlend(e);
+  // }
 
   static void DrawIndexed(const Ref<VertexArray>& vao,uint32_t indexCount){
     s_API->DrawIndexed(vao, indexCount);

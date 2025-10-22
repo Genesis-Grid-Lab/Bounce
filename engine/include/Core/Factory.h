@@ -16,7 +16,7 @@ public:
   static GraphicsAPI GetGraphicsAPI() { return s_Desc.Graphics_API; }
 
   static Scope<Window> NewWindow();
-  static Scope<GraphicsContext> CreateContext();
+  static Scope<GraphicsContext> Create(void* window);
   static Scope<RendererAPI> CreateRendererAPI();
 
   static Ref<Shader> CreateShader(const std::string& filepath);

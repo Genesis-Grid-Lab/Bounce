@@ -3,18 +3,23 @@
 using GLuint = unsigned int;
 
 namespace Engine {
-    class GLVertexArray : public VertexArray {
-public:
+    class GLVertexArray : public VertexArray{
+  public:
     GLVertexArray();
-    ~GLVertexArray() override;
+    virtual ~GLVertexArray() override;
 
-    void Bind() const override;
-    void Unbind() const override;
+    virtual void Bind() const override;
+    virtual void Unbind() const override;
 
-    void EnableAttrib(unsigned int index, int comps, unsigned int type,
-                      bool normalized, int stride, std::size_t offset) override;
+    virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
+    virtual void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
 
-private:
-    GLuint m_Id = 0;
-};
+    virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const override { return m_VertexBuffers; }
+    virtual const Ref<IndexBuffer>& GetIndexBuffer() const override { return m_IndexBuffer; }
+  private:
+    uint32_t m_RendererID;
+    uint32_t m_VertexBufferIndex = 0;
+    std::vector<Ref<VertexBuffer>> m_VertexBuffers;
+    Ref<IndexBuffer> m_IndexBuffer;
+  };
 }

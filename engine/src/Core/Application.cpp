@@ -29,12 +29,6 @@ namespace Engine {
     m_Window = Factory::NewWindow();
 
     Renderer::Init();
-
-    if(!m_GraphicsDevice->Initialize(*m_Window)){
-        E_CORE_ERROR("Failed to init Graphics device");
-    }
-
-    RenderCommand::Init(Factory::CreateRendererAPI());
     
     m_Window->Events().Subscribe<EWindowResize>([this](const EWindowResize& e) { OnWindowResize(e);});
     m_Window->Events().Subscribe<EWindowClose>([this](const EWindowClose&) { OnWindowClose();});        

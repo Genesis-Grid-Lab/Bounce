@@ -2,7 +2,6 @@
 
 #include "Core/Types.h"
 #include "Window/Window.h"
-#include "Render/GraphicsDevice.h"
 #include "Core/Timestep.h"
 #include "Core/Layer.h"
 #include "Core/LayerStack.h"

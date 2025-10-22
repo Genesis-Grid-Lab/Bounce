@@ -1,5 +1,5 @@
 #include "Core/FactoryDesc.h"
-#include "Render/GraphicsDevice.h"
+#include "Render/GraphicsContext.h"
 #include "Render/glad/GLRendererAPI.h"
 #include "epch.h"
 #include "Core/Factory.h"
@@ -20,9 +20,8 @@
 #include "Render/Vulkan/VulkanDevice.h"
 #include "Render/Vulkan/VulkanRendererAPI.h"
 
-#include "Render/glad/GLDevice.h"
+#include "Render/glad/GLContext.h"
 #include "Render/glad/GLShader.h"
-#include "Render/glad/GLDevice.h"
 #include "Render/glad/GLVertexArray.h"
 #include "Render/glad/GLBuffer.h"
 
@@ -44,12 +43,12 @@ Scope<Window> Factory::NewWindow() {
   return nullptr;
 }
 
-  Scope<GraphicsDevice> Factory::NewGraphicsDevice(){
+  Scope<GraphicsContext> Factory::Create(void* window){
     switch(s_Desc.Graphics_API){
     case GraphicsAPI::Vulkan:
-      return CreateScope<VulkanDevice>();
+      // return CreateScope<VulkanDevice>();
     case GraphicsAPI::OpenGL:
-      return CreateScope<GLDevice>();
+      return CreateScope<GLContext>(static_cast<GLFWwindow*>(window));
     }
 
     E_CORE_ASSERT(false, "No graphics backend selected");
@@ -78,17 +77,37 @@ Scope<Window> Factory::NewWindow() {
     return nullptr;
   }
 
-  Ref<Buffer> Factory::CreateBuffer(BufferType Type){
+  Ref<VertexBuffer> Factory::Create(uint32_t size){
     switch(s_Desc.Graphics_API){
       case GraphicsAPI::OpenGL:
-        return CreateRef<GLBuffer>(Type);
+        return CreateRef<GLVertexBuffer>(size);
     }
 
     E_CORE_ASSERT(false, "No graphics backend selected");
     return nullptr;
   }
 
-  Ref<VertexArray> Factory::CreateVertexArray(){
+  Ref<VertexBuffer> Factory::Create(float* vertices, uint32_t size){
+    switch(s_Desc.Graphics_API){
+      case GraphicsAPI::OpenGL:
+        return CreateRef<GLVertexBuffer>(vertices,size);
+    }
+
+    E_CORE_ASSERT(false, "No graphics backend selected");
+    return nullptr;
+  }
+
+  Ref<VertexBuffer> Factory::Create(Vertex *vertices, uint32_t size){
+    switch(s_Desc.Graphics_API){
+      case GraphicsAPI::OpenGL:
+        return CreateRef<GLVertexBuffer>(vertices,size);
+    }
+
+    E_CORE_ASSERT(false, "No graphics backend selected");
+    return nullptr;
+  }
+
+  Ref<VertexArray> Factory::Create(){
     switch(s_Desc.Graphics_API){
       case GraphicsAPI::OpenGL:
         return CreateRef<GLVertexArray>();

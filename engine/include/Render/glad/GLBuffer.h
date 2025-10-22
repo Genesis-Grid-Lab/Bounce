@@ -5,21 +5,40 @@ using GLuint = unsigned int;
 
 namespace Engine {
 
-    class GLBuffer : public Buffer{
-public:
-    GLBuffer(BufferType t);
-    ~GLBuffer() override;
+    class  GLVertexBuffer : public VertexBuffer
+	{
+	public:
+        GLVertexBuffer(uint32_t size);
+        GLVertexBuffer(float* vertices, uint32_t size);
+        GLVertexBuffer(Vertex* vertices, uint32_t size);
+		~GLVertexBuffer();
 
-    BufferType Type() const override { return m_Type;}
-    void SetData(const void* data, std::size_t bytes, bool dynamic=false) override;
-    void UpdateSubData(std::size_t byteOffset, const void* data, std::size_t bytes) override;
-    void Bind() const override;
-    void Unbind() const override;
+		virtual void Bind() const override;
+		virtual void Unbind() const override;
 
-    GLuint id() const { return m_Id; }
+		virtual void SetData(const void* data, uint32_t size) override;
 
-private:
-    GLuint m_Id = 0;
-    BufferType m_Type;
-};
+		virtual const BufferLayout& GetLayout() const override{ return m_Layout; }
+		virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
+    private:
+		uint32_t m_RendererID;
+		BufferLayout m_Layout;
+	};
+
+
+    class  GLIndexBuffer : public IndexBuffer
+	{
+	public:
+        GLIndexBuffer(uint32_t* indices, uint32_t count);
+		virtual ~GLIndexBuffer() override;
+
+		virtual void Bind() const override;
+		virtual void Unbind() const override;
+
+		virtual uint32_t GetCount() const override { return m_Count;}
+        
+    private:
+		uint32_t m_RendererID;
+		uint32_t m_Count;
+	};
 }

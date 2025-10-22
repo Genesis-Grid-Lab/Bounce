@@ -10,12 +10,12 @@
 using namespace Engine;
 
 int main(int argc, char** argv) {
-  
+    std::cout << "Starting program\n";
     auto app = new TestApp();
 
     app->Run();
 
     delete app;
 
-  return 0;  
+    return 0;  
 }
