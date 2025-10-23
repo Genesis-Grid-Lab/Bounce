@@ -7,6 +7,7 @@
 #include "Scene/Components.h"
 #include "Scene/Scene.h"
 #include "Scene/Entity.h"
+#include "Core/Input.h"
 
 class TestLayer : public Engine::Layer {
 public:
@@ -20,12 +21,20 @@ public:
 
     auto MainModel = scene->CreateEntity("sponza");
     MainModel.AddComponent<Engine::ModelComponent>().ModelData = model;
+
+    auto cam = scene->CreateEntity("cam");
+    auto& cc = cam.AddComponent<Engine::Camera3DComponent>();
+    cc.Primary = true;
+    auto& tc = cam.GetComponent<Engine::TransformComponent>().Translation;
+    tc = {0, 0, 0};
   }
   virtual void OnDetach() override { }
   virtual void OnUpdate(Timestep ts) override {
 
     scene->OnUpdate(ts);
-        
+    if(Engine::Input::IsKeyPressed(Key::Space)){
+        scene->TogglePlaying();
+    }
   }
   virtual void OnImGuiRender() override {}
 private:

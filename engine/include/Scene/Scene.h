@@ -3,6 +3,7 @@
 #include "Core/UUID.h"
 #include "Core/Timestep.h"
 #include "Render/Camera.h"
+#include "SceneCamera.h"
 #include <entt/entt.hpp>
 
 namespace Engine {
@@ -34,14 +35,22 @@ public:
       });
   }
 
+  void TogglePlaying() { 
+    if(m_Playing)
+      m_Playing = false;
+    else if(m_Playing == false)
+      m_Playing = true;
+  }
+
 private:
   template <typename T> void OnComponentAdded(Entity entity, T &component);
 
 private:
   entt::registry m_Registry;
-  std::vector<entt::entity> m_DestroyQueue;
-  Camera3D m_SceneCam;
   bool m_Playing = false;
+  std::vector<entt::entity> m_DestroyQueue;
+  SceneCamera m_SceneCam;
+  Camera m_MainCam;
   friend class Entity;
   
 };

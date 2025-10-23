@@ -10,7 +10,7 @@
 namespace Engine {
 
 Scene::Scene() {
-  m_SceneCam = Camera3D(30.0f, 1.778f, 0.1f, 2000.0f);
+  m_SceneCam = SceneCamera(30.0f, 1.778f, 0.1f, 2000.0f);
 }
 Scene::~Scene() {}
 
@@ -76,7 +76,22 @@ Scene::~Scene() {}
     RenderCommand::SetClearColor(clearColor);
     RenderCommand::Clear();
 
-    if(!m_Playing)Renderer3D::BeginCamera(m_SceneCam);
+    if(!m_Playing)
+      m_MainCam = m_SceneCam;
+    else
+    {
+        ViewEntity<Entity, Camera3DComponent>([this](auto entity, auto& comp) {
+            auto& transform = entity.template GetComponent<TransformComponent>();
+            // comp.Camera.SetMode(CameraMode::ThirdPerson);
+            comp.Camera.SetPosition(transform.Translation);
+            if (comp.Primary) {
+                m_MainCam = comp.Camera;
+            }
+        });
+    }
+    
+
+    Renderer3D::BeginCamera(m_MainCam);
 
     Engine::Renderer3D::RenderLight({0, 0, 0});
 
@@ -86,7 +101,11 @@ Scene::~Scene() {}
       Renderer3D::DrawModel(comp.ModelData, transform.GetTransform());
     });
 
-    m_SceneCam.OnUpdate(ts);
+    if(!m_Playing)
+      m_SceneCam.OnUpdate(ts);
+    else
+      m_MainCam.OnUpdate(ts);
+
     Renderer3D::EndCamera();
   }
 
@@ -110,4 +129,8 @@ Scene::~Scene() {}
   void Scene::OnComponentAdded<ModelComponent>(Entity entity,
                                                ModelComponent &component)
   {}     
+
+  template <>
+  void Scene::OnComponentAdded<Camera3DComponent>(Entity entity, Camera3DComponent& component)
+  {}
 }

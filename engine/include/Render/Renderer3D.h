@@ -12,7 +12,7 @@ namespace Engine {
     static void Init();
     static void Shutdown();
 
-    static void BeginCamera(const Camera3D& camera);
+    static void BeginCamera(const Camera& camera);
     static void EndCamera();
 
     static void RenderLight(const glm::vec3& pos);

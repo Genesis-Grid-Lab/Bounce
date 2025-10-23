@@ -171,7 +171,7 @@ namespace Engine {
     //   s_Animator.reset()
   }
 
-  void Renderer3D::BeginCamera(const Camera3D& camera)
+  void Renderer3D::BeginCamera(const Camera& camera)
   {        
     m_Shader->Bind();
     m_Shader->SetMat4("u_View", camera.GetViewMatrix());

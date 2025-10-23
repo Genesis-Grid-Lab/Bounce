@@ -2,9 +2,6 @@
 #include "Render/Camera.h"
 #include "Core/Input.h"
 
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/quaternion.hpp>
-
 namespace Engine {
 
   // camera 2d
@@ -32,29 +29,90 @@ namespace Engine {
 
   // camera 3d
 
-  Camera3D::Camera3D(float fov, float aspectRatio, float nearClip, float farClip)
-    : m_FOV(fov), m_AspectRatio(aspectRatio), m_NearClip(nearClip), m_FarClip(farClip), Camera(glm::perspective(glm::radians(fov), aspectRatio, nearClip, farClip))
+  Camera3D::Camera3D()
   {
 		
     RecalculateViewMatrix();
   }
 
+  Camera3D::~Camera3D(){}
+
+  void Camera3D::SetPerspective(float verticalFOV, float nearClip, float farClip)
+	{
+		
+		m_ProjectionType = ProjectionType::Perspective;
+		m_PerspectiveFOV = verticalFOV;
+		m_PerspectiveNear = nearClip;
+		m_PerspectiveFar = farClip;
+		RecalculateProjectionMatrix();
+	}
+
+	void Camera3D::SetOrthographic(float size, float nearClip, float farClip)
+	{		
+		m_ProjectionType = ProjectionType::Orthographic;
+		m_OrthographicSize = size;
+		m_OrthographicNear = nearClip;
+		m_OrthographicFar = farClip;
+		RecalculateProjectionMatrix();
+	}
+
   void Camera3D::RecalculateProjectionMatrix()
   {
-    m_AspectRatio = m_ViewportWidth / m_ViewportHeight;
-    m_ProjectionMatrix = glm::perspective(glm::radians(m_FOV), m_AspectRatio,
-                                          m_NearClip, m_FarClip);
+    if (m_ProjectionType == ProjectionType::Perspective)
+    {
+        m_ProjectionMatrix = glm::perspective(m_PerspectiveFOV, m_AspectRatio, m_PerspectiveNear, m_PerspectiveFar);
+    }
+    else
+    {
+        float orthoLeft = -m_OrthographicSize * m_AspectRatio * 0.5f;
+        float orthoRight = m_OrthographicSize * m_AspectRatio * 0.5f;
+        float orthoBottom = -m_OrthographicSize * 0.5f;
+        float orthoTop = m_OrthographicSize * 0.5f;
+
+        m_ProjectionMatrix = glm::ortho(orthoLeft, orthoRight,
+            orthoBottom, orthoTop, m_OrthographicNear, m_OrthographicFar);
+    }
+
     RecalculateViewMatrix();
   }
 
   void Camera3D::RecalculateViewMatrix()
   {
-    // m_Yaw = m_Pitch = 0.0f; // Lock the camera's rotation
-    m_Position = CalculatePosition();
+    glm::vec3 position;
+    glm::vec3 direction;
+    
+    switch (m_Mode)
+    {
+        case CameraMode::ThirdPerson:
+        {
+            glm::vec3 behind = glm::normalize(m_Target - (m_Target + m_Offset));
+            m_Position = m_Target + m_Offset;
+            direction = glm::normalize(m_Target - m_Position);
+            break;
+        }
 
-    glm::quat orientation = GetOrientation();
-    m_ViewMatrix = glm::translate(glm::mat4(1.0f), m_Position) * glm::toMat4(orientation);
-    m_ViewMatrix = glm::inverse(m_ViewMatrix);
+        case CameraMode::FirstPerson:
+        {
+            m_Position = m_Target;
+            direction = glm::normalize(glm::vec3(
+                cos(m_Rotation2.y) * cos(m_Rotation2.x),
+                sin(m_Rotation2.x),
+                sin(m_Rotation2.y) * cos(m_Rotation2.x)
+            ));
+            break;
+        }
+
+        case CameraMode::TopDown:
+        {
+            m_Position = m_Target + glm::vec3(0.0f, m_Offset.y, 0.0f);
+            direction = glm::vec3(0.0f, -1.0f, 0.0f); // looking straight down
+            break;
+        }
+    }
+
+    m_ViewMatrix = glm::lookAt(m_Position, m_Position + direction, glm::vec3(0, 1, 0));
+    // m_Position = position;
+    m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
   }
 
   std::pair<float, float> Camera3D::PanSpeed() const
@@ -75,28 +133,29 @@ namespace Engine {
 
   float Camera3D::ZoomSpeed() const
   {
-    float distance = m_Distance * 0.2f;
-    distance = std::max(distance, 0.0f);
-    float speed = distance * distance;
-    speed = std::min(speed, 100.0f); // max speed = 100
-    return speed;
+    
+    return 1;
   }
 
   void Camera3D::OnUpdate(Timestep ts)
   {
-    if (Input::IsKeyPressed(Key::LeftAlt))
-      {
-	const glm::vec2& mouse{ Input::GetMouseX(), Input::GetMouseY() };
-	glm::vec2 delta = (mouse - m_InitialMousePosition) * 0.003f;
-	m_InitialMousePosition = mouse;
+    // if (Input::IsKeyPressed(Key::LeftAlt))
+    //   {
+	// const glm::vec2& mouse{ Input::GetMouseX(), Input::GetMouseY() };
+	// glm::vec2 delta = (mouse - m_InitialMousePosition) * 0.003f;
+	// m_InitialMousePosition = mouse;
 
-	if (Input::IsMouseButtonPressed(Mouse::ButtonMiddle))
-	  MousePan(delta);
-	else if (Input::IsMouseButtonPressed(Mouse::ButtonLeft))
-	  MouseRotate(delta);
-	else if (Input::IsMouseButtonPressed(Mouse::ButtonRight))
-	  MouseZoom(delta.y);
-      }
+	// if (Input::IsMouseButtonPressed(Mouse::ButtonMiddle))
+	//   MousePan(delta);
+	// else if (Input::IsMouseButtonPressed(Mouse::ButtonLeft))
+	//   MouseRotate(delta);
+	// else if (Input::IsMouseButtonPressed(Mouse::ButtonRight))
+	//   MouseZoom(delta.y);
+    //   }
+
+    if(Input::IsKeyPressed(Key::W)){
+
+    }
 
     RecalculateProjectionMatrix();
   }
@@ -117,9 +176,9 @@ namespace Engine {
 
   void Camera3D::MousePan(const glm::vec2& delta)
   {
-    auto [xSpeed, ySpeed] = PanSpeed();
-    m_FocalPoint += -GetRightDirection() * delta.x * xSpeed * m_Distance;
-    m_FocalPoint += GetUpDirection() * delta.y * ySpeed * m_Distance;
+    // auto [xSpeed, ySpeed] = PanSpeed();
+    // m_FocalPoint += -GetRightDirection() * delta.x * xSpeed * m_Distance;
+    // m_FocalPoint += GetUpDirection() * delta.y * ySpeed * m_Distance;
   }
 
   void Camera3D::MouseRotate(const glm::vec2& delta)
@@ -131,36 +190,17 @@ namespace Engine {
 
   void Camera3D::MouseZoom(float delta)
   {
-    m_Distance -= delta * ZoomSpeed();
-    if (m_Distance < 1.0f)
-      {
-	m_FocalPoint += GetForwardDirection();
-	m_Distance = 1.0f;
-      }
-  }
-
-  glm::vec3 Camera3D::GetUpDirection() const
-  {
-    return glm::rotate(GetOrientation(), glm::vec3(0.0f, 1.0f, 0.0f));
-  }
-
-  glm::vec3 Camera3D::GetRightDirection() const
-  {
-    return glm::rotate(GetOrientation(), glm::vec3(1.0f, 0.0f, 0.0f));
-  }
-
-  glm::vec3 Camera3D::GetForwardDirection() const
-  {
-    return glm::rotate(GetOrientation(), glm::vec3(0.0f, 0.0f, -1.0f));
+    // m_Distance -= delta * ZoomSpeed();
+    // if (m_Distance < 1.0f)
+    //   {
+	// m_FocalPoint += GetForwardDirection();
+	// m_Distance = 1.0f;
+    //   }
   }
 
   glm::vec3 Camera3D::CalculatePosition() const
   {
-    return m_FocalPoint - GetForwardDirection() * m_Distance;
-  }
-
-  glm::quat Camera3D::GetOrientation() const
-  {
-    return glm::quat(glm::vec3(-m_Pitch, -m_Yaw, 0.0f));
+    // return m_FocalPoint - GetForwardDirection() * m_Distance;
+    return glm::vec3(0);
   }
 }

@@ -2,6 +2,7 @@
 
 #include "Core/UUID.h"
 #include "Render/Model.h"
+#include "Render/Camera.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -66,5 +67,15 @@ namespace Engine {
     glm::vec3 Color;
     CubeComponent() = default;
     CubeComponent(const CubeComponent&) = default;
+  };
+
+  struct Camera3DComponent
+  {
+    Camera3D Camera;
+    bool Primary = false; // TODO: think about moving to Scene
+    bool FixedAspectRatio = false;
+
+    Camera3DComponent() = default;
+    Camera3DComponent(const Camera3DComponent&) = default;
   };
 }
