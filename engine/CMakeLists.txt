@@ -35,6 +35,7 @@ endif()
 
 file(GLOB core ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/*.cpp)
 file(GLOB render ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/*.cpp)
+file(GLOB scene ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/*.cpp)
 file(GLOB_RECURSE headers ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
 file(GLOB_RECURSE vulkanFiles ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/Vulkan/*.cpp)
 file(GLOB gladFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/glad/*.cpp)
@@ -47,6 +48,7 @@ add_library(${PROJECT_NAME}
   ${androidFile}
   ${vulkanFiles}
   ${gladFile}
+  ${scene}
   )
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/epch.h)
@@ -60,12 +62,14 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   ${CMAKE_SOURCE_DIR}/vendor/imgui
   ${CMAKE_SOURCE_DIR}/vendor/imgui/backends
   ${CMAKE_SOURCE_DIR}/vendor/assimp/include
+  ${CMAKE_SOURCE_DIR}/vendor/entt/src/entt
   ${Vulkan_INCLUDE_DIRS}
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
   glfw
   glm
+  EnTT
   glad
   assimp
   imgui

@@ -1,27 +1,34 @@
 #pragma once
 #include "Core/Layer.h"
 #include "Core/Log.h"
+#include "Render/Model.h"
 #include "Render/Renderer3D.h"
 #include "Render/Camera.h"
+#include "Scene/Components.h"
+#include "Scene/Scene.h"
+#include "Scene/Entity.h"
 
 class TestLayer : public Engine::Layer {
 public:
-    TestLayer() {}
+  TestLayer() {}
 
-    void OnAttach() override { 
-        E_INFO("OnAttach()");
-        camera = Engine::Camera3D(30.0f, 1.778f, 0.1f, 2000.0f);
-    }
-    virtual void OnDetach() override { }
-    virtual void OnUpdate(Timestep ts) override {
-        Engine::Renderer3D::BeginCamera(camera);
+  void OnAttach() override {
+    E_INFO("OnAttach()");
+    scene = Engine::CreateRef<Engine::Scene>();
+    model = Engine::CreateRef<Engine::Model>(
+        "Resources/sponza2/source/glTF/Sponza.gltf");
 
-        camera.OnUpdate(ts);
-        Engine::Renderer3D::DrawCube({0, 0, 0}, {1, 1, 1}, {10, 0, 0});
+    auto MainModel = scene->CreateEntity("sponza");
+    MainModel.AddComponent<Engine::ModelComponent>().ModelData = model;
+  }
+  virtual void OnDetach() override { }
+  virtual void OnUpdate(Timestep ts) override {
 
-        Engine::Renderer3D::EndCamera();
-     }
-    virtual void OnImGuiRender() override {}
+    scene->OnUpdate(ts);
+        
+  }
+  virtual void OnImGuiRender() override {}
 private:
- Engine::Camera3D camera;
+  Engine::Ref<Engine::Model> model;
+  Engine::Ref<Engine::Scene> scene;
 };

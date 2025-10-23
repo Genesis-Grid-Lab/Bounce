@@ -3,8 +3,6 @@
 #include "Core/E_Assert.h"
 #include "Core/Factory.h"
 #include "Core/Timestep.h"
-
-#include "Render/RenderCommand.h"
 #include "Render/Renderer.h"
 
 // temp
@@ -82,9 +80,6 @@ namespace Engine {
         float time = (float)glfwGetTime();
         Timestep timestep = m_LastFrameTime;
         m_LastFrameTime = time;
-        glm::vec4 clearColor = {0.5f, 0.3f, 0.1f, 1.0f};
-        RenderCommand::SetClearColor(clearColor);
-        RenderCommand::Clear();
 
         if (!m_Minimized) {
             for (Layer* layer : m_LayerStack) {

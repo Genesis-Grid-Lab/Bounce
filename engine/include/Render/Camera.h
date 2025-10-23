@@ -12,25 +12,31 @@ const float Default_SPEED = 5.5f;
 const float Default_SENSITIVITY = 0.1f;
 const float Default_ZOOM = 45.0f;
 
-class Camera{
+class Camera {
+public:
+  enum class ProjectionType { Perspective = 0, Orthographic = 1 };
 public:
  Camera() = default;
  Camera(const glm::mat4& projection) : m_ProjectionMatrix(projection){}
  virtual ~Camera() = default;
- void SetPosition(const glm::vec3& position) { *m_Position = position; RecalculateViewMatrix(); }
+
+  virtual void OnUpdate(Timestep ts){}
+  virtual void OnEvent(Event& e){} 
+ void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
 void SetRotation(float rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
 void SetRotation2(const glm::vec3& rotation) { m_Rotation2 = rotation; RecalculateViewMatrix();}
 
 float GetRotation() const { return m_Rotation; }
 const glm::vec3& GetRotation2() const { return m_Rotation2;}
-const glm::vec3& GetPosition() const { return *m_Position; }
+const glm::vec3& GetPosition() const { return m_Position; }
 const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
 const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
 const glm::mat4& GetViewProjectionMatrix() const { return m_ViewProjectionMatrix; }
-glm::vec3* m_Position = nullptr;
 private:
- virtual void RecalculateViewMatrix() {};
+  virtual void RecalculateViewMatrix(){};
+  virtual void RecalculateProjectionMatrix(){}
 protected:
+glm::vec3 m_Position;
  glm::mat4 m_ProjectionMatrix = glm::mat4(1.0f);
  glm::mat4 m_ViewMatrix;
  glm::mat4 m_ViewProjectionMatrix;
@@ -56,13 +62,13 @@ public:
     Camera3D() = default;
     Camera3D(float fov, float aspectRatio, float nearClip, float farClip);
 
-    void OnUpdate(Timestep ts);
-    void OnEvent(Event& e);
+    void OnUpdate(Timestep ts) override;
+    void OnEvent(Event& e) override;
 
     inline float GetDistance() const { return m_Distance; }
     inline void SetDistance(float distance) { m_Distance = distance; }
 
-    inline void SetViewportSize(float width, float height) { m_ViewportWidth = width; m_ViewportHeight = height; UpdateProjection(); }
+    inline void SetViewportSize(float width, float height) { m_ViewportWidth = width; m_ViewportHeight = height; RecalculateProjectionMatrix(); }
 
     const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
     glm::mat4 GetViewProjection() const { return m_ProjectionMatrix * m_ViewMatrix; }
@@ -70,14 +76,13 @@ public:
     glm::vec3 GetUpDirection() const;
     glm::vec3 GetRightDirection() const;
     glm::vec3 GetForwardDirection() const;
-    const glm::vec3& GetPosition() const { return m_Position; }
     glm::quat GetOrientation() const;
 
     float GetPitch() const { return m_Pitch; }
     float GetYaw() const { return m_Yaw; }
 private:
-    void UpdateProjection();
-    void UpdateView();
+    void RecalculateProjectionMatrix() override;
+    void RecalculateViewMatrix() override;
 
     bool OnMouseScroll(MouseScrolledEvent& e);
 
@@ -94,7 +99,6 @@ private:
     float m_FOV = 45.0f, m_AspectRatio = 1.778f, m_NearClip = 0.1f, m_FarClip = 1000.0f;
 
     glm::mat4 m_ViewMatrix;
-    glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
     glm::vec3 m_FocalPoint = { 0.0f, 0.0f, 0.0f };
 
     glm::vec2 m_InitialMousePosition = { 0.0f, 0.0f };
