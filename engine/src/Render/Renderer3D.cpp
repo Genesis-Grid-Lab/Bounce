@@ -11,7 +11,8 @@ namespace Engine {
     static Ref<Shader> m_ShaderSimple;    
     static Ref<Shader> m_LightShader;
     static Ref<Shader> m_SkyShader;
-    static glm::vec3 m_LightPos; 
+    static glm::vec3 m_LightPos;
+    static Ref<Skybox> m_Skybox;
     static Ref<Mesh> s_CubeMesh;
     static Ref<Mesh> s_SphereMesh;
 
@@ -125,6 +126,13 @@ static GLuint lineVAO = 0, lineVBO = 0;
         m_LightShader = Factory::CreateShader("Data/Shaders/BasicLight.glsl");
         m_SkyShader = Factory::CreateShader("Data/Shaders/skybox.glsl");
 
+        std::vector<std::string> faces = {
+            "Resources/skybox/right.jpg", "Resources/skybox/left.jpg", "Resources/skybox/top.jpg",
+            "Resources/skybox/bottom.jpg", "Resources/skybox/front.jpg", "Resources/skybox/back.jpg"
+        };
+        
+        m_Skybox = Factory::CreateSkybox(faces);
+
         s_CubeMesh = GenerateCubeMesh();
         s_SphereMesh = GenerateSphereMesh();
 
@@ -154,7 +162,7 @@ static GLuint lineVAO = 0, lineVBO = 0;
       m_LightShader.reset();
       m_SkyShader.reset();          
     //   m_LightModel.reset();   
-    //   m_Skybox.reset(); 
+      m_Skybox.reset(); 
       s_CubeMesh.reset(); 
       s_SphereMesh.reset();         
     //   s_Animator.reset()
@@ -182,7 +190,7 @@ static GLuint lineVAO = 0, lineVBO = 0;
         m_ShaderSimple->SetInt("u_EntityID", -1);
         
         m_SkyShader->Bind();
-        // m_Skybox->Draw(m_SkyShader, camera.GetViewMatrix(), camera.GetProjectionMatrix());
+        m_Skybox->Draw(m_SkyShader, camera.GetViewMatrix(), camera.GetProjectionMatrix());
 	}
 
      void Renderer3D::EndCamera(){

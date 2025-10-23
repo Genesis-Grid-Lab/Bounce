@@ -28,16 +28,15 @@ namespace Engine {
     E_CORE_INFO("[APPLICATION] Settings desc");
     s_Instance = this;
     m_Window = Factory::NewWindow();
+    m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
     Renderer::Init();
-    
-    m_Window->Events().Subscribe<EWindowResize>([this](const EWindowResize& e) { OnWindowResize(e);});
-    m_Window->Events().Subscribe<EWindowClose>([this](const EWindowClose&) { OnWindowClose();});        
+           
   }
 
   Application::~Application() {
-    Renderer::Shutdown();
     E_CORE_INFO("[APPLICATION] Shutting down");
+    Renderer::Shutdown();
     
   }
 
@@ -65,50 +64,70 @@ namespace Engine {
     m_Running = false;
   }
 
+   void Application::OnEvent(Event& e){
+       E_CORE_INFO("[APPLICATION] Event, {}", e.GetName());
+       EventDispatcher dispatcher(e);
+       dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+       dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
+
+       for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it) {
+           if (e.Handled)
+               break;
+           (*it)->OnEvent(e);
+       }
+    }
+
   void Application::Run(){
     while(m_Running){
-      // float time = (float)
-      Timestep timestep = m_LastFrameTime;
-      // m_LastFrameTime = time;
-      glm::vec4 clearColor = {0.5f, 0.3f, 0.1f, 1.0f};
-      RenderCommand::SetClearColor(clearColor);
-      RenderCommand::Clear();
+        float time = (float)glfwGetTime();
+        Timestep timestep = m_LastFrameTime;
+        m_LastFrameTime = time;
+        glm::vec4 clearColor = {0.5f, 0.3f, 0.1f, 1.0f};
+        RenderCommand::SetClearColor(clearColor);
+        RenderCommand::Clear();
 
-      if(!m_Minimized){
-	for(Layer* layer : m_LayerStack){
-	  layer->OnUpdate(timestep);
-	}
-      }
-      m_Window->PollEvents();
-      m_Window->SwapBuffers();
+        if (!m_Minimized) {
+            for (Layer* layer : m_LayerStack) {
+                layer->OnUpdate(timestep);
+            }
+        }
+
+      m_Window->OnUpdate();
 
       while (!m_LayerActionQueue.empty()) {
-	LayerAction action = m_LayerActionQueue.front();
-	m_LayerActionQueue.pop();
+        LayerAction action = m_LayerActionQueue.front();
+        m_LayerActionQueue.pop();
             
-	if (action.Type == LayerActionType::Push) {
-	  PushLayer(action.LayerPtr);
-	} else if (action.Type == LayerActionType::Pop) {
-	  PopLayer(action.LayerPtr);
-	  delete action.LayerPtr;
-	}
+        if (action.Type == LayerActionType::Push) {
+        PushLayer(action.LayerPtr);
+        } else if (action.Type == LayerActionType::Pop) {
+        PopLayer(action.LayerPtr);
+        delete action.LayerPtr;
+        }
       }
     }
     
   }
 
-  void Application::OnWindowClose() {
-    E_CORE_INFO("[APPLICATION] Closing");
-    m_Running = false;        
-  }
-  void Application::OnWindowResize(const EWindowResize& e){
-    E_CORE_INFO("[APPLICATION] Resizing");
-    if(e.fbWidth == 0 || e.fbHeight == 0){
-      m_Minimized = true;            
+bool Application::OnWindowClose(WindowCloseEvent& e){
+
+    m_Running = false;
+    return true;
+}
+
+bool Application::OnWindowResize(WindowResizeEvent& e){
+    E_CORE_INFO("[APPLICATION] resize Width:{}, Height:{}", e.GetWidth(), e.GetHeight());
+    if(e.GetWidth() == 0 || e.GetHeight() == 0){
+        m_Minimized = true;
+        return false;
     }
 
     m_Minimized = false;
-  }
+
+    Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+    return false;
+}
 
   
 

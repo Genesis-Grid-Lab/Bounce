@@ -1,55 +1,36 @@
+#pragma once
+
 #include "Window/Window.h"
-#include "Render/GraphicsContext.h"
 
 struct GLFWwindow;
 
-namespace Engine{
-  class GlfwWindow : public Window {
-  public:
-    explicit GlfwWindow(const FactoryDesc &desc);
-    ~GlfwWindow() override;
+namespace Engine {    
 
-    WindowAPI API() override { return WindowAPI::GLFW; }
-    void* Handle() const override;
-
-    bool ShouldClose() const override;
-    void PollEvents() override;
-    void SwapBuffers() override;
-
-    glm::vec2 GetWindowSize() const override;
-    glm::vec2 GetFramebufferSize() const override;
-    float GetDevicePixelRatio() const override;
-
-    void SetCloseCallback(CloseCallback cb) override;
-    void SetResizeCallback(ResizeCallback cb) override;
-
-    EventBus &Events() override { return m_Events; }
-
-    GLProc GetGLProcLoader() const override;
-    void SetSwapInterval(int interval) override;
-    bool IsVsyncEnabled() const override { return m_Vsync; }
-
-  private:
-    void updateDevicePixelRatio();
-  
-    static void framebufferSizeCB(GLFWwindow* win, int w, int h);
-    static void windowCloseCB(GLFWwindow* win);
-    static void contentScaleCB(GLFWwindow *win, float xscale, float yscale);
-    static void keyCB(GLFWwindow* win, int key, int scancode, int action, int mods);
-    static void charCB(GLFWwindow* win, unsigned int codepoint);
-    static void mouseButtonCB(GLFWwindow* win, int button, int action, int mods);
-    static void cursorPosCB(GLFWwindow* win, double x, double y);
-    static void scrollCB(GLFWwindow* win, double dx, double dy);
-  private:
-    GLFWwindow *m_Window = nullptr;
-    Scope<GraphicsContext> m_Context;
-    float m_dpr = 1.0f;
-    EventBus m_Events;
-
-    bool m_Vsync = true;
-    bool m_HasGL = false;
-
-    CloseCallback m_OnClose;
-    ResizeCallback m_OnResize;
-  };
+    class  GlfwWindow : public Window
+    {
+    public:
+        using EventCallbackFn = std::function<void(Event&)>;
+    
+        GlfwWindow(const WindowProps& props);
+        ~GlfwWindow();
+    
+        virtual void OnUpdate() override;
+    
+        uint32_t GetWidth() const { return m_Data.Width;}
+        uint32_t GetHeight() const { return m_Data.Height;}
+    
+        //Window attributes
+        void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback;}
+        void SetVSync(bool enabled);
+        bool IsVSync() const;
+    
+        void* GetNativeWindow() const { return m_Window;}
+    
+    protected:
+        void Init(const WindowProps& props);
+        void Shutdown();
+    
+    private:
+      GLFWwindow* m_Window;          
+    };
 }

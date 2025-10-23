@@ -1,5 +1,6 @@
 #include "epch.h"
 #include "Render/Camera.h"
+#include "Core/Input.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
@@ -81,60 +82,60 @@ namespace Engine {
 
 	void Camera3D::OnUpdate(Timestep ts)
 	{
-		// if (Input::IsKeyPressed(Key::LeftAlt))
-		// {
-		// 	const glm::vec2& mouse{ Input::GetMouseX(), Input::GetMouseY() };
-		// 	glm::vec2 delta = (mouse - m_InitialMousePosition) * 0.003f;
-		// 	m_InitialMousePosition = mouse;
+		if (Input::IsKeyPressed(Key::LeftAlt))
+		{
+			const glm::vec2& mouse{ Input::GetMouseX(), Input::GetMouseY() };
+			glm::vec2 delta = (mouse - m_InitialMousePosition) * 0.003f;
+			m_InitialMousePosition = mouse;
 
-		// 	if (Input::IsMouseButtonPressed(Mouse::ButtonMiddle))
-		// 		MousePan(delta);
-		// 	else if (Input::IsMouseButtonPressed(Mouse::ButtonLeft))
-		// 		MouseRotate(delta);
-		// 	else if (Input::IsMouseButtonPressed(Mouse::ButtonRight))
-		// 		MouseZoom(delta.y);
-		// }
+			if (Input::IsMouseButtonPressed(Mouse::ButtonMiddle))
+				MousePan(delta);
+			else if (Input::IsMouseButtonPressed(Mouse::ButtonLeft))
+				MouseRotate(delta);
+			else if (Input::IsMouseButtonPressed(Mouse::ButtonRight))
+				MouseZoom(delta.y);
+		}
 
 		UpdateView();
 	}
 
-	// void Camera3D::OnEvent(Event& e)
-	// {
-	// 	EventDispatcher dispatcher(e);
-	// 	dispatcher.Dispatch<MouseScrolledEvent>(BIND_EVENT_FN(Camera3D::OnMouseScroll));
-	// }
+	void Camera3D::OnEvent(Event& e)
+	{
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<MouseScrolledEvent>(BIND_EVENT_FN(Camera3D::OnMouseScroll));
+	}
 
-	// bool Camera3D::OnMouseScroll(MouseScrolledEvent& e)
-	// {
-	// 	float delta = e.GetYOffset() * 0.1f;
-	// 	MouseZoom(delta);
-	// 	UpdateView();
-	// 	return false;
-	// }
+	bool Camera3D::OnMouseScroll(MouseScrolledEvent& e)
+	{
+		float delta = e.GetYOffset() * 0.1f;
+		MouseZoom(delta);
+		UpdateView();
+		return false;
+	}
 
-	// void Camera3D::MousePan(const glm::vec2& delta)
-	// {
-	// 	auto [xSpeed, ySpeed] = PanSpeed();
-	// 	m_FocalPoint += -GetRightDirection() * delta.x * xSpeed * m_Distance;
-	// 	m_FocalPoint += GetUpDirection() * delta.y * ySpeed * m_Distance;
-	// }
+	void Camera3D::MousePan(const glm::vec2& delta)
+	{
+		auto [xSpeed, ySpeed] = PanSpeed();
+		m_FocalPoint += -GetRightDirection() * delta.x * xSpeed * m_Distance;
+		m_FocalPoint += GetUpDirection() * delta.y * ySpeed * m_Distance;
+	}
 
-	// void Camera3D::MouseRotate(const glm::vec2& delta)
-	// {
-	// 	float yawSign = GetUpDirection().y < 0 ? -1.0f : 1.0f;
-	// 	m_Yaw += yawSign * delta.x * RotationSpeed();
-	// 	m_Pitch += delta.y * RotationSpeed();
-	// }
+	void Camera3D::MouseRotate(const glm::vec2& delta)
+	{
+		float yawSign = GetUpDirection().y < 0 ? -1.0f : 1.0f;
+		m_Yaw += yawSign * delta.x * RotationSpeed();
+		m_Pitch += delta.y * RotationSpeed();
+	}
 
-	// void Camera3D::MouseZoom(float delta)
-	// {
-	// 	m_Distance -= delta * ZoomSpeed();
-	// 	if (m_Distance < 1.0f)
-	// 	{
-	// 		m_FocalPoint += GetForwardDirection();
-	// 		m_Distance = 1.0f;
-	// 	}
-	// }
+	void Camera3D::MouseZoom(float delta)
+	{
+		m_Distance -= delta * ZoomSpeed();
+		if (m_Distance < 1.0f)
+		{
+			m_FocalPoint += GetForwardDirection();
+			m_Distance = 1.0f;
+		}
+	}
 
 	glm::vec3 Camera3D::GetUpDirection() const
 	{

@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/Types.h"
 #include "Core/Timestep.h"
+#include "Events/MouseEvent.h"
 
 namespace Engine {
 
@@ -56,7 +57,7 @@ public:
     Camera3D(float fov, float aspectRatio, float nearClip, float farClip);
 
     void OnUpdate(Timestep ts);
-    // void OnEvent(Event& e);
+    void OnEvent(Event& e);
 
     inline float GetDistance() const { return m_Distance; }
     inline void SetDistance(float distance) { m_Distance = distance; }
@@ -78,11 +79,11 @@ private:
     void UpdateProjection();
     void UpdateView();
 
-    // bool OnMouseScroll(MouseScrolledEvent& e);
+    bool OnMouseScroll(MouseScrolledEvent& e);
 
-    // void MousePan(const glm::vec2& delta);
-    // void MouseRotate(const glm::vec2& delta);
-    // void MouseZoom(float delta);
+    void MousePan(const glm::vec2& delta);
+    void MouseRotate(const glm::vec2& delta);
+    void MouseZoom(float delta);
 
     glm::vec3 CalculatePosition() const;
 

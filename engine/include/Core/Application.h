@@ -5,7 +5,8 @@
 #include "Core/Timestep.h"
 #include "Core/Layer.h"
 #include "Core/LayerStack.h"
-// #include "Event/EventBus.h"
+#include "Events/Event.h"
+#include "Events/ApplicationEvent.h"
 
 int main(int argc, char** argv);
 
@@ -27,6 +28,8 @@ namespace Engine {
     Application(const std::string& name = "Application", const glm::vec2& size = glm::vec2(100));
     virtual ~Application();
 
+    void OnEvent(Event& e);
+
     void PushLayer(Layer* layer);
     void PushOverlay(Layer* layer);
     void PopLayer(Layer* layer);
@@ -42,8 +45,8 @@ namespace Engine {
 
   private:
     void Run();
-    void OnWindowClose();
-    void OnWindowResize(const EWindowResize& e);
+    bool OnWindowClose(WindowCloseEvent& e);
+    bool OnWindowResize(WindowResizeEvent& e);
   private:
     Scope<Window> m_Window;
 

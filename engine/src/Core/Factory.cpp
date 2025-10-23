@@ -24,6 +24,7 @@
 #include "Render/glad/GLShader.h"
 #include "Render/glad/GLVertexArray.h"
 #include "Render/glad/GLBuffer.h"
+#include "Render/glad/GLSkybox.h"
 
 namespace Engine {
 
@@ -33,10 +34,14 @@ void Factory::SetDesc(const FactoryDesc& desc){
   s_Desc = desc;
 }
 
+FactoryDesc Factory::GetDesc() {
+  return s_Desc;
+}
+
 Scope<Window> Factory::NewWindow() {
   switch(s_Desc.Window_API){
   case WindowAPI::GLFW:
-    return CreateScope<GlfwWindow>(s_Desc);
+    return CreateScope<GlfwWindow>(WindowProps(s_Desc.Title, s_Desc.DisplaySize.x, s_Desc.DisplaySize.y));
   }
 
   E_CORE_ASSERT(false, "No window backend selected");
@@ -85,6 +90,17 @@ Scope<Window> Factory::NewWindow() {
 
     E_CORE_ASSERT(false, "No graphics backend selected");
     return nullptr;
+  }
+
+  Ref<Skybox> Factory::CreateSkybox(const std::vector<std::string>& faces){
+    switch (s_Desc.Graphics_API)
+		{
+			case GraphicsAPI::None:    E_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+			case GraphicsAPI::OpenGL:  return CreateRef<GLSkybox>(faces);
+		}
+
+		E_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
   }
 
   Ref<VertexBuffer> Factory::Create(uint32_t size){

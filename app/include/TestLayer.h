@@ -16,6 +16,7 @@ public:
     virtual void OnUpdate(Timestep ts) override {
         Engine::Renderer3D::BeginCamera(camera);
 
+        camera.OnUpdate(ts);
         Engine::Renderer3D::DrawCube({0, 0, 0}, {1, 1, 1}, {10, 0, 0});
 
         Engine::Renderer3D::EndCamera();
