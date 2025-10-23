@@ -57,6 +57,9 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   ${CMAKE_SOURCE_DIR}/vendor/glm
   ${CMAKE_SOURCE_DIR}/vendor/glad/include
   ${CMAKE_SOURCE_DIR}/vendor/stb_image
+  ${CMAKE_SOURCE_DIR}/vendor/imgui
+  ${CMAKE_SOURCE_DIR}/vendor/imgui/backends
+  ${CMAKE_SOURCE_DIR}/vendor/assimp/include
   ${Vulkan_INCLUDE_DIRS}
 )
 
@@ -64,6 +67,8 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   glfw
   glm
   glad
+  assimp
+  imgui
   spdlog
 )
 
