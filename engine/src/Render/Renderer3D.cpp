@@ -1,6 +1,7 @@
 #include "epch.h"
 #include "Render/Renderer3D.h"
 #include "Core/Factory.h"
+#include "Animation/Animator.h"
 
 //temp
 #include <glad/glad.h>
@@ -16,6 +17,7 @@ namespace Engine {
   static Ref<Skybox> m_Skybox;
   static Ref<Mesh> s_CubeMesh;
   static Ref<Mesh> s_SphereMesh;
+  static Ref<Animator> s_Animator;
 
   //TODO: remove
   static GLuint lineVAO = 0, lineVBO = 0;
@@ -147,7 +149,9 @@ namespace Engine {
       -1.0f,  1.0f,  0.0f, 1.0f
     };
 
-    uint32_t indices[] = { 0, 1, 2, 2, 3, 0 };
+    uint32_t indices[] = {0, 1, 2, 2, 3, 0};
+
+    s_Animator = CreateRef<Animator>();
 
     glGenVertexArrays(1, &lineVAO);
     glGenBuffers(1, &lineVBO);
@@ -168,7 +172,7 @@ namespace Engine {
     m_Skybox.reset(); 
     s_CubeMesh.reset(); 
     s_SphereMesh.reset();         
-    //   s_Animator.reset()
+    s_Animator.reset();
   }
 
   void Renderer3D::BeginCamera(const Camera& camera)
@@ -360,5 +364,24 @@ namespace Engine {
         Renderer3D::DrawLine(ntr, ftr, color);
         Renderer3D::DrawLine(nbr, fbr, color);
         Renderer3D::DrawLine(nbl, fbl, color);
+   }
+
+  void Renderer3D::RunAnimation(Ref<Animation> animation, float ts){
+    m_Shader->Bind();
+    if(s_Animator->GetCurrentAnimation() != animation){
+      s_Animator->PlayAnimation(animation);
+      E_CORE_INFO("[renderer3d]: Running");
     }
+
+    s_Animator->UpdateAnimation(ts);
+
+    auto finalBones = s_Animator->GetFinalBoneMatrices();
+    for (int i = 0; i < finalBones.size(); ++i)
+      {
+	std::string uniformName = "u_FinalBonesMatrices[" + std::to_string(i) + "]";
+	m_Shader->SetMat4(uniformName, finalBones[i]);
+      }
+
+    m_Shader->Unbind();
+  }   
 }

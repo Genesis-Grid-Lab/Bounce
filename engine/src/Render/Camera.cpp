@@ -1,6 +1,7 @@
 #include "epch.h"
 #include "Render/Camera.h"
 #include "Core/Input.h"
+#include "Core/Log.h"
 
 namespace Engine {
 
@@ -38,40 +39,40 @@ namespace Engine {
   Camera3D::~Camera3D(){}
 
   void Camera3D::SetPerspective(float verticalFOV, float nearClip, float farClip)
-	{
+  {
 		
-		m_ProjectionType = ProjectionType::Perspective;
-		m_PerspectiveFOV = verticalFOV;
-		m_PerspectiveNear = nearClip;
-		m_PerspectiveFar = farClip;
-		RecalculateProjectionMatrix();
-	}
+    m_ProjectionType = ProjectionType::Perspective;
+    m_PerspectiveFOV = verticalFOV;
+    m_PerspectiveNear = nearClip;
+    m_PerspectiveFar = farClip;
+    RecalculateProjectionMatrix();
+  }
 
-	void Camera3D::SetOrthographic(float size, float nearClip, float farClip)
-	{		
-		m_ProjectionType = ProjectionType::Orthographic;
-		m_OrthographicSize = size;
-		m_OrthographicNear = nearClip;
-		m_OrthographicFar = farClip;
-		RecalculateProjectionMatrix();
-	}
+  void Camera3D::SetOrthographic(float size, float nearClip, float farClip)
+  {		
+    m_ProjectionType = ProjectionType::Orthographic;
+    m_OrthographicSize = size;
+    m_OrthographicNear = nearClip;
+    m_OrthographicFar = farClip;
+    RecalculateProjectionMatrix();
+  }
 
   void Camera3D::RecalculateProjectionMatrix()
   {
     if (m_ProjectionType == ProjectionType::Perspective)
-    {
+      {
         m_ProjectionMatrix = glm::perspective(m_PerspectiveFOV, m_AspectRatio, m_PerspectiveNear, m_PerspectiveFar);
-    }
+      }
     else
-    {
+      {
         float orthoLeft = -m_OrthographicSize * m_AspectRatio * 0.5f;
         float orthoRight = m_OrthographicSize * m_AspectRatio * 0.5f;
         float orthoBottom = -m_OrthographicSize * 0.5f;
         float orthoTop = m_OrthographicSize * 0.5f;
 
         m_ProjectionMatrix = glm::ortho(orthoLeft, orthoRight,
-            orthoBottom, orthoTop, m_OrthographicNear, m_OrthographicFar);
-    }
+					orthoBottom, orthoTop, m_OrthographicNear, m_OrthographicFar);
+      }
 
     RecalculateViewMatrix();
   }
@@ -83,49 +84,49 @@ namespace Engine {
     glm::vec3 direction{0.0f, 0.0f, -1.0f};
     
     switch (m_Mode)
-    {
-        case CameraMode::ThirdPerson:
+      {
+      case CameraMode::ThirdPerson:
         {
-            glm::vec3 behind = glm::normalize(m_Target - (m_Target + m_Offset));
-            m_Position = m_Target + m_Offset;
-            direction = glm::normalize(m_Target - m_Position);
-            break;
+	  glm::vec3 behind = glm::normalize(m_Target - (m_Target + m_Offset));
+	  m_Position = m_Target + m_Offset + m_Position;
+	  direction = glm::normalize(m_Target - m_Position);
+	  break;
         }
 
-        case CameraMode::FirstPerson:
+      case CameraMode::FirstPerson:
         {
-            m_Position = m_Target;
-            direction = glm::normalize(glm::vec3(
-                cos(m_Rotation2.y) * cos(m_Rotation2.x),
-                sin(m_Rotation2.x),
-                sin(m_Rotation2.y) * cos(m_Rotation2.x)
-            ));
-            break;
+	  m_Position = m_Target;
+	  direction = glm::normalize(glm::vec3(
+					       cos(m_Rotation2.y) * cos(m_Rotation2.x),
+					       sin(m_Rotation2.x),
+					       sin(m_Rotation2.y) * cos(m_Rotation2.x)
+					       ));
+	  break;
         }
 
-        case CameraMode::TopDown:
+      case CameraMode::TopDown:
         {
-            m_Position = m_Target + glm::vec3(0.0f, m_Offset.y, 0.0f);
-            direction = glm::vec3(0.0f, -1.0f, 0.0f); // looking straight down
-            break;
+	  m_Position = m_Target + glm::vec3(0.0f, m_Offset.y, 0.0f);
+	  direction = glm::vec3(0.0f, -1.0f, 0.0f); // looking straight down
+	  break;
         }
-    }
+      }
 
     // Build an orthonormal basis to get a stable up vector
     // If direction is nearly parallel to worldUp, pick a different up reference.
     glm::vec3 right = glm::cross(direction, worldUp);
     if (glm::length2(right) < 1e-6f) {
-        // direction is nearly parallel to worldUp — choose a fallback up (e.g. +Z)
-        right = glm::cross(direction, glm::vec3(0.0f, 0.0f, 1.0f));
+      // direction is nearly parallel to worldUp — choose a fallback up (e.g. +Z)
+      right = glm::cross(direction, glm::vec3(0.0f, 0.0f, 1.0f));
     }
     right = glm::normalize(right);
     glm::vec3 cameraUp = glm::normalize(glm::cross(right, direction));
 
     // Prevent accidental inversion: make sure cameraUp roughly points same way as worldUp
     if (glm::dot(cameraUp, worldUp) < 0.0f) {
-        cameraUp = -cameraUp;
-        // Recompute right to keep orthonormal basis consistent
-        right = glm::normalize(glm::cross(direction, cameraUp));
+      cameraUp = -cameraUp;
+      // Recompute right to keep orthonormal basis consistent
+      right = glm::normalize(glm::cross(direction, cameraUp));
     }
 
     glm::vec3 test = { cameraUp.x, -cameraUp.y, cameraUp.z};
@@ -160,22 +161,22 @@ namespace Engine {
   {
     // if (Input::IsKeyPressed(Key::LeftAlt))
     //   {
-	// const glm::vec2& mouse{ Input::GetMouseX(), Input::GetMouseY() };
-	// glm::vec2 delta = (mouse - m_InitialMousePosition) * 0.003f;
-	// m_InitialMousePosition = mouse;
+    // const glm::vec2& mouse{ Input::GetMouseX(), Input::GetMouseY() };
+    // glm::vec2 delta = (mouse - m_InitialMousePosition) * 0.003f;
+    // m_InitialMousePosition = mouse;
 
-	// if (Input::IsMouseButtonPressed(Mouse::ButtonMiddle))
-	//   MousePan(delta);
-	// else if (Input::IsMouseButtonPressed(Mouse::ButtonLeft))
-	//   MouseRotate(delta);
-	// else if (Input::IsMouseButtonPressed(Mouse::ButtonRight))
-	//   MouseZoom(delta.y);
+    // if (Input::IsMouseButtonPressed(Mouse::ButtonMiddle))
+    //   MousePan(delta);
+    // else if (Input::IsMouseButtonPressed(Mouse::ButtonLeft))
+    //   MouseRotate(delta);
+    // else if (Input::IsMouseButtonPressed(Mouse::ButtonRight))
+    //   MouseZoom(delta.y);
     //   }
 
     if(Input::IsKeyPressed(Key::W)){
-
+      m_Position = {m_Position.x, m_Position.y, m_Position.z + m_Position.z};
+      E_CORE_INFO("pos {}", m_Position);
     }
-
     RecalculateProjectionMatrix();
   }
 
@@ -212,8 +213,8 @@ namespace Engine {
     // m_Distance -= delta * ZoomSpeed();
     // if (m_Distance < 1.0f)
     //   {
-	// m_FocalPoint += GetForwardDirection();
-	// m_Distance = 1.0f;
+    // m_FocalPoint += GetForwardDirection();
+    // m_Distance = 1.0f;
     //   }
   }
 

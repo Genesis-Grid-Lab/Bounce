@@ -29,7 +29,11 @@ namespace Engine {
     m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
     Renderer::Init();
-           
+
+#if E_DEBUG
+    m_ImGuiLayer = new ImGuiLayer();
+    PushOverlay(m_ImGuiLayer);
+#endif
   }
 
   Application::~Application() {
@@ -86,6 +90,16 @@ namespace Engine {
                 layer->OnUpdate(timestep);
             }
         }
+
+#if E_DEBUG                
+	m_ImGuiLayer->Begin();
+	{
+	  for(Layer* layer : m_LayerStack)
+	    layer->OnImGuiRender();
+	}
+
+	m_ImGuiLayer->End();
+#endif 
 
       m_Window->OnUpdate();
 

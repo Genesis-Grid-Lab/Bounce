@@ -25,7 +25,7 @@ public:
 
   virtual void OnUpdate(Timestep ts){}
   virtual void OnEvent(Event& e){} 
- void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
+ void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateProjectionMatrix(); }
 void SetRotation(float rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
 void SetRotation2(const glm::vec3& rotation) { m_Rotation2 = rotation; RecalculateViewMatrix();}
 

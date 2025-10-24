@@ -39,6 +39,7 @@ file(GLOB scene ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/*.cpp)
 file(GLOB_RECURSE headers ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
 file(GLOB_RECURSE vulkanFiles ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/Vulkan/*.cpp)
 file(GLOB gladFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/glad/*.cpp)
+file(GLOB animFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Animation/*.cpp)
 add_library(${PROJECT_NAME}
   ${core} ${headers}
   ${render}
@@ -49,6 +50,7 @@ add_library(${PROJECT_NAME}
   ${vulkanFiles}
   ${gladFile}
   ${scene}
+  ${animFile}
   )
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/epch.h)

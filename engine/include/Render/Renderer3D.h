@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "Model.h"
+#include "Animation/Animation.h"
 
 namespace Engine {
 
@@ -31,6 +32,8 @@ namespace Engine {
     static void DrawModel(const Ref<Model>& model,const glm::vec3& position,const glm::vec3& size = glm::vec3(1.0f), const glm::vec3& color = glm::vec3(1), const float transparancy = 1.0f);
 
     static void DrawLine(const glm::vec3& p0, const glm::vec3& p1, const glm::vec4& color);
-    static void DrawCameraFrustum(const Camera3D& cam);
+    static void DrawCameraFrustum(const Camera3D &cam);
+
+    static void RunAnimation(Ref<Animation> animation, float ts);
     };
 }

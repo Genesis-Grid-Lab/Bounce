@@ -105,8 +105,9 @@ Scene::~Scene() {}
 
     ViewEntity<Entity, ModelComponent>([this](auto entity, auto &comp) {
       auto &transform = entity.template GetComponent<TransformComponent>();
-      
+
       Renderer3D::DrawModel(comp.ModelData, transform.GetTransform());
+      Renderer3D::RunAnimation(comp.AnimationData[0], 20);
     });
 
     Renderer3D::DrawCube({1, 1, 0}, {1, 1, 1}, {1, 0, 1});
@@ -114,7 +115,15 @@ Scene::~Scene() {}
     if(!m_Playing)
       m_SceneCam.OnUpdate(ts);
     else
-      m_MainCam.OnUpdate(ts);
+      {
+	m_MainCam.OnUpdate(ts);
+	ViewEntity<Entity, Camera3DComponent>([this, &ts](auto entity, auto& comp) {
+	  auto& transform = entity.template GetComponent<TransformComponent>();
+          if (comp.Primary) {
+            comp.Camera.OnUpdate(ts);
+	  }
+	});
+      }
 
     Renderer3D::EndCamera();
   }

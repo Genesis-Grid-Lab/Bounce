@@ -4,7 +4,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include <assimp/scene.h>
-// #include "Renderer/Animation/AnimData.h"
+#include "Animation/AnimData.h"
 
 namespace Engine {
 
@@ -13,7 +13,7 @@ namespace Engine {
     Model(const std::string& path, bool gamma = false);
     void Draw(const Ref<Shader>& shader);
     int GetMeshCount(){ return m_Meshes.size();}
-    // auto& GetBoneInfoMap() { return m_BoneInfoMap; }
+    auto& GetBoneInfoMap() { return m_BoneInfoMap; }
     int& GetBoneCount() { return m_BoneCounter; }
     std::vector<Ref<Mesh>>& GetMeshes() { return m_Meshes;}
     //TO DO: Change
@@ -31,7 +31,7 @@ namespace Engine {
     std::vector<TextureMesh> m_TexturesLoaded;
     std::string m_Directory;
     bool m_GammaCorrection;
-    // std::map<std::string, BoneInfo> m_BoneInfoMap;
+    std::map<std::string, BoneInfo> m_BoneInfoMap;
     int m_BoneCounter = 0;
   };
 

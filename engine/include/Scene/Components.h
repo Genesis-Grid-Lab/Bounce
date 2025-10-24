@@ -3,6 +3,7 @@
 #include "Core/UUID.h"
 #include "Render/Model.h"
 #include "Render/Camera.h"
+#include "Animation/Animation.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -58,7 +59,7 @@ namespace Engine {
 
   struct  ModelComponent{
     Ref<Model> ModelData;
-    /* std::map<std::string, Ref<Animation>> AnimationData; */
+    std::map<std::string, Ref<Animation>> AnimationData;
     ModelComponent() = default;
     ModelComponent(const ModelComponent&) = default;
   };

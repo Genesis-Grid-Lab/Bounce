@@ -5,6 +5,7 @@
 #include "Core/Timestep.h"
 #include "Core/Layer.h"
 #include "Core/LayerStack.h"
+#include "Core/ImGuiLayer.h"
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
 
@@ -32,7 +33,8 @@ namespace Engine {
 
     void PushLayer(Layer* layer);
     void PushOverlay(Layer* layer);
-    void PopLayer(Layer* layer);
+    void PopLayer(Layer *layer);
+    ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer;}
 
     void Close();
 
@@ -49,7 +51,7 @@ namespace Engine {
     bool OnWindowResize(WindowResizeEvent& e);
   private:
     Scope<Window> m_Window;
-
+    ImGuiLayer* m_ImGuiLayer;
     bool m_Running = true;
     bool m_Minimized = false;
     LayerStack m_LayerStack;

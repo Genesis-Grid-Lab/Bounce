@@ -159,43 +159,43 @@ namespace Engine {
 
   void Model::ExtractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh, const aiScene* scene)
   {
-    // auto& boneInfoMap = m_BoneInfoMap;
-    // int& boneCount = m_BoneCounter;
+    auto& boneInfoMap = m_BoneInfoMap;
+    int& boneCount = m_BoneCounter;
 
-    // for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
-    //   {
-    // 	int boneID = -1;
-    // 	std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
+    for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
+      {
+	int boneID = -1;
+	std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
             
-    // 	if (boneInfoMap.find(boneName) == boneInfoMap.end())
-    // 	  {
-    // 	    BoneInfo newBoneInfo;
-    // 	    newBoneInfo.id = boneCount;
-    // 	    newBoneInfo.offset = AssimpGLMHelpers::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
-    // 	    boneInfoMap[boneName] = newBoneInfo;
-    // 	    boneID = boneCount;
-    // 	    boneCount++;
-    // 	  }
-    // 	else
-    // 	  {
-    // 	    boneID = boneInfoMap[boneName].id;
-    // 	  }
-    // 	assert(boneID != -1);
-    // 	auto weights = mesh->mBones[boneIndex]->mWeights;
-    // 	int numWeights = mesh->mBones[boneIndex]->mNumWeights;
+	if (boneInfoMap.find(boneName) == boneInfoMap.end())
+	  {
+	    BoneInfo newBoneInfo;
+	    newBoneInfo.id = boneCount;
+	    newBoneInfo.offset = AssimpGLMHelpers::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
+	    boneInfoMap[boneName] = newBoneInfo;
+	    boneID = boneCount;
+	    boneCount++;
+	  }
+	else
+	  {
+	    boneID = boneInfoMap[boneName].id;
+	  }
+	assert(boneID != -1);
+	auto weights = mesh->mBones[boneIndex]->mWeights;
+	int numWeights = mesh->mBones[boneIndex]->mNumWeights;
 
-    // 	for (int weightIndex = 0; weightIndex < numWeights; ++weightIndex)
-    // 	  {
-    // 	    int vertexId = weights[weightIndex].mVertexId;
-    // 	    float weight = weights[weightIndex].mWeight;                
-    // 	    if (vertexId >= vertices.size()) {
-    // 	      std::cerr << "Invalid vertex ID in bone weights: " << vertexId << " >= " << vertices.size() << "\n";
-    // 	      continue; // Or throw an error
-    // 	    }
-    // 	    assert(vertexId <= vertices.size());
-    // 	    SetVertexBoneData(vertices[vertexId], boneID, weight);
-    // 	  }
-    //   }
+	for (int weightIndex = 0; weightIndex < numWeights; ++weightIndex)
+	  {
+	    int vertexId = weights[weightIndex].mVertexId;
+	    float weight = weights[weightIndex].mWeight;                
+	    if (vertexId >= vertices.size()) {
+	      std::cerr << "Invalid vertex ID in bone weights: " << vertexId << " >= " << vertices.size() << "\n";
+	      continue; // Or throw an error
+	    }
+	    assert(vertexId <= vertices.size());
+	    SetVertexBoneData(vertices[vertexId], boneID, weight);
+	  }
+      }
   }
 
   std::vector<TextureMesh> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName){      
