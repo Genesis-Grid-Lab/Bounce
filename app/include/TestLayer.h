@@ -26,7 +26,7 @@ public:
     auto& cc = cam.AddComponent<Engine::Camera3DComponent>();
     cc.Primary = true;
     auto& tc = cam.GetComponent<Engine::TransformComponent>().Translation;
-    tc = {0, 0, 0};
+    tc = {0, 0, 2};
   }
   virtual void OnDetach() override { }
   virtual void OnUpdate(Timestep ts) override {

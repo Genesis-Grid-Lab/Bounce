@@ -240,15 +240,11 @@ void GLShader::SetFloat3(const std::string& name, const glm::vec3& value)
 
 void GLShader::SetFloat4(const std::string& name, const glm::vec4& value)
 {
-    
-
     UploadUniformFloat4(name, value);
 }
 
 void GLShader::SetMat4(const std::string& name, const glm::mat4& value)
-{
-    
-
+{    
     UploadUniformMat4(name, value);
 }
 
@@ -297,6 +293,7 @@ void GLShader::UploadUniformMat3(const std::string& name, const glm::mat3& matri
 void GLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
 {
     GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+    if (location == -1) return;
     glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 }

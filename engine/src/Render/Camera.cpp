@@ -78,8 +78,9 @@ namespace Engine {
 
   void Camera3D::RecalculateViewMatrix()
   {
-    glm::vec3 position;
-    glm::vec3 direction;
+
+    const glm::vec3 worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 direction{0.0f, 0.0f, -1.0f};
     
     switch (m_Mode)
     {
@@ -110,8 +111,26 @@ namespace Engine {
         }
     }
 
-    m_ViewMatrix = glm::lookAt(m_Position, m_Position + direction, glm::vec3(0, 1, 0));
-    // m_Position = position;
+    // Build an orthonormal basis to get a stable up vector
+    // If direction is nearly parallel to worldUp, pick a different up reference.
+    glm::vec3 right = glm::cross(direction, worldUp);
+    if (glm::length2(right) < 1e-6f) {
+        // direction is nearly parallel to worldUp — choose a fallback up (e.g. +Z)
+        right = glm::cross(direction, glm::vec3(0.0f, 0.0f, 1.0f));
+    }
+    right = glm::normalize(right);
+    glm::vec3 cameraUp = glm::normalize(glm::cross(right, direction));
+
+    // Prevent accidental inversion: make sure cameraUp roughly points same way as worldUp
+    if (glm::dot(cameraUp, worldUp) < 0.0f) {
+        cameraUp = -cameraUp;
+        // Recompute right to keep orthonormal basis consistent
+        right = glm::normalize(glm::cross(direction, cameraUp));
+    }
+
+    glm::vec3 test = { cameraUp.x, -cameraUp.y, cameraUp.z};
+    
+    m_ViewMatrix = glm::lookAt(m_Position, m_Position + direction, test);    
     m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
   }
 

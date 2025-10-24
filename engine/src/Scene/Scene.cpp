@@ -82,7 +82,8 @@ Scene::~Scene() {}
     {
         ViewEntity<Entity, Camera3DComponent>([this](auto entity, auto& comp) {
             auto& transform = entity.template GetComponent<TransformComponent>();
-            // comp.Camera.SetMode(CameraMode::ThirdPerson);
+            comp.Camera.SetPerspective(30.0f, 0.1f, 2000.0f);
+            comp.Camera.SetMode(CameraMode::ThirdPerson);
             comp.Camera.SetPosition(transform.Translation);
             if (comp.Primary) {
                 m_MainCam = comp.Camera;
@@ -95,11 +96,20 @@ Scene::~Scene() {}
 
     Engine::Renderer3D::RenderLight({0, 0, 0});
 
+    if(!m_Playing){
+      ViewEntity<Entity, Camera3DComponent>([this](auto entity, auto& comp) {
+        auto& transform = entity.template GetComponent<TransformComponent>();
+        // Renderer3D::DrawCameraFrustum(comp.Camera);
+      });
+    }
+
     ViewEntity<Entity, ModelComponent>([this](auto entity, auto &comp) {
       auto &transform = entity.template GetComponent<TransformComponent>();
       
       Renderer3D::DrawModel(comp.ModelData, transform.GetTransform());
     });
+
+    Renderer3D::DrawCube({1, 1, 0}, {1, 1, 1}, {1, 0, 1});
 
     if(!m_Playing)
       m_SceneCam.OnUpdate(ts);

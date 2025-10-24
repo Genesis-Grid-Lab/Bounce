@@ -280,4 +280,85 @@ namespace Engine {
     DrawModel(model, imodel, color, transparancy);
 
   }
+
+  void Renderer3D::DrawLine(const glm::vec3& p0, const glm::vec3& p1, const glm::vec4& color) {
+      
+      glm::vec3 points[2] = { p0, p1 };
+      
+      // Update VBO
+      glBindBuffer(GL_ARRAY_BUFFER, lineVBO);
+      glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(points), points);
+      
+      // Bind shader first (so uniform calls go to current program)
+      m_ShaderSimple->Bind();   // should call glUseProgram(programID)
+      
+      // Ensure we have a bound GL context and a valid shader
+      GLint curProg = 0;
+      glGetIntegerv(GL_CURRENT_PROGRAM, &curProg);
+      if (curProg == 0) {
+          E_CORE_WARN("DrawLine: no GL program bound - skipping draw");
+          return;
+      }
+    // If your SetFloat4 uses glGetUniformLocation(program, name) internally, ensure it
+    // uses the program bound by m_ShaderSimple->Bind() (or use cached location)
+    m_ShaderSimple->SetFloat4("u_Color", color);
+
+    // Bind VAO and draw
+    glBindVertexArray(lineVAO);
+    glDrawArrays(GL_LINES, 0, 2);
+
+    // Unbind
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+   void Renderer3D::DrawCameraFrustum(const Camera3D& cam)
+    {                
+
+        glm::vec3 pos = cam.GetPosition();
+        glm::vec3 forward = cam.GetForwardDirection();
+        glm::vec3 right = cam.GetRightDirection();
+        glm::vec3 up = cam.GetUpDirection();
+
+        float nearD = cam.GetPerspectiveNearClip();
+        float farD = cam.GetPerspectiveFarClip();
+        float fov = cam.GetVerticalFOV();
+        float ar = cam.GetAspectRatio();
+
+        float nearH = 2.0f * tan(fov / 2.0f) * nearD;
+        float nearW = nearH * ar;
+        float farH = 2.0f * tan(fov / 2.0f) * farD;
+        float farW = farH * ar;
+
+        glm::vec3 nc = pos + forward * nearD;
+        glm::vec3 fc = pos + forward * farD;
+
+        glm::vec3 ntl = nc + (up * nearH / 2.0f) - (right * nearW / 2.0f);
+        glm::vec3 ntr = nc + (up * nearH / 2.0f) + (right * nearW / 2.0f);
+        glm::vec3 nbl = nc - (up * nearH / 2.0f) - (right * nearW / 2.0f);
+        glm::vec3 nbr = nc - (up * nearH / 2.0f) + (right * nearW / 2.0f);
+
+        glm::vec3 ftl = fc + (up * farH / 2.0f) - (right * farW / 2.0f);
+        glm::vec3 ftr = fc + (up * farH / 2.0f) + (right * farW / 2.0f);
+        glm::vec3 fbl = fc - (up * farH / 2.0f) - (right * farW / 2.0f);
+        glm::vec3 fbr = fc - (up * farH / 2.0f) + (right * farW / 2.0f);
+
+        // glm::mat4 vp = cam.GetViewProjection();
+        glm::vec4 color = {1, 1, 0, 1}; // Yellow
+
+        Renderer3D::DrawLine(ntl, ntr, color);
+        Renderer3D::DrawLine(ntr, nbr, color);
+        Renderer3D::DrawLine(nbr, nbl, color);
+        Renderer3D::DrawLine(nbl, ntl, color);
+
+        Renderer3D::DrawLine(ftl, ftr, color);
+        Renderer3D::DrawLine(ftr, fbr, color);
+        Renderer3D::DrawLine(fbr, fbl, color);
+        Renderer3D::DrawLine(fbl, ftl, color);
+
+        Renderer3D::DrawLine(ntl, ftl, color);
+        Renderer3D::DrawLine(ntr, ftr, color);
+        Renderer3D::DrawLine(nbr, fbr, color);
+        Renderer3D::DrawLine(nbl, fbl, color);
+    }
 }
