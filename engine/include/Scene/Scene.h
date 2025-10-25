@@ -5,10 +5,16 @@
 #include "Render/Camera.h"
 #include "SceneCamera.h"
 #include <entt/entt.hpp>
+#include "Auxiliaries/Physics.h"
 
 namespace Engine {
 
 class Entity;
+
+  enum class SceneState
+    {
+      Edit = 0, Play = 1
+    };
 
 class Scene {
 public:
@@ -22,7 +28,12 @@ public:
   void DestroyEntityNow(Entity entity);
   void FlushEntityDestruction();
 
+  void OnRuntimeStart();
+  void OnRuntimeStop();
+  void PhysicsUpdate(float dt);
+
   void OnUpdate(Timestep ts);
+  void OnUpdateRuntime(Timestep ts);
 
   template<typename Entt, typename Comp, typename Task>
     void ViewEntity(Task&& task){
@@ -35,19 +46,12 @@ public:
       });
   }
 
-  void TogglePlaying() { 
-    if(m_Playing)
-      m_Playing = false;
-    else if(m_Playing == false)
-      m_Playing = true;
-  }
-
 private:
   template <typename T> void OnComponentAdded(Entity entity, T &component);
 
 private:
+  PhysicsEngine m_Physics3D;
   entt::registry m_Registry;
-  bool m_Playing = false;
   std::vector<entt::entity> m_DestroyQueue;
   SceneCamera m_SceneCam;
   Camera m_MainCam;

@@ -40,6 +40,7 @@ file(GLOB_RECURSE headers ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
 file(GLOB_RECURSE vulkanFiles ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/Vulkan/*.cpp)
 file(GLOB gladFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/glad/*.cpp)
 file(GLOB animFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Animation/*.cpp)
+file(GLOB physFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Auxiliaries/*.cpp)
 add_library(${PROJECT_NAME}
   ${core} ${headers}
   ${render}
@@ -51,6 +52,7 @@ add_library(${PROJECT_NAME}
   ${gladFile}
   ${scene}
   ${animFile}
+  ${physFile}
   )
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/epch.h)
@@ -65,6 +67,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   ${CMAKE_SOURCE_DIR}/vendor/imgui/backends
   ${CMAKE_SOURCE_DIR}/vendor/assimp/include
   ${CMAKE_SOURCE_DIR}/vendor/entt/src/entt
+  ${CMAKE_SOURCE_DIR}/vendor/JoltPhysics
   ${Vulkan_INCLUDE_DIRS}
 )
 
@@ -74,6 +77,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   EnTT
   glad
   assimp
+  Jolt
   imgui
   spdlog
 )

@@ -25,6 +25,8 @@ public:
 
     auto MainModel = scene->CreateEntity("sponza");
     MainModel.AddComponent<Engine::ModelComponent>().ModelData = model;
+    auto &modelT = MainModel.GetComponent<Engine::TransformComponent>();
+    
 
     cam = scene->CreateEntity("cam");
     auto& cc = cam.AddComponent<Engine::Camera3DComponent>();
@@ -47,9 +49,26 @@ public:
   virtual void OnDetach() override { }
   virtual void OnUpdate(Timestep ts) override {
 
-    scene->OnUpdate(ts);
-    if(Engine::Input::IsKeyJustPressed(Key::Space)){
-        scene->TogglePlaying();
+    switch (m_SceneState) {
+    case Engine::SceneState::Edit:
+      scene->OnUpdate(ts);
+      break;
+    case Engine::SceneState::Play:
+      scene->OnUpdateRuntime(ts);
+      break;
+    }
+
+    if (Engine::Input::IsKeyJustPressed(Key::Space)) {
+      switch (m_SceneState) {
+      case Engine::SceneState::Edit:
+	E_INFO("Change to play");
+        m_SceneState = Engine::SceneState::Play;
+	break;
+      case Engine::SceneState::Play:
+	E_INFO("Change to edit");
+	m_SceneState = Engine::SceneState::Edit;
+	break;
+      }
     }
 
     auto &cc = cam.GetComponent<Engine::Camera3DComponent>();
@@ -62,7 +81,9 @@ public:
     DrawVec3Control("Target", target);
     ImGui::End();
   }
+
 private:
+  Engine::SceneState m_SceneState = Engine::SceneState::Edit;
   Engine::Ref<Engine::Model> model;
   Engine::Ref<Engine::Scene> scene;
   Engine::Entity cam;

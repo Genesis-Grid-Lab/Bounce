@@ -11,6 +11,7 @@ namespace Engine {
 
 Scene::Scene() {
   m_SceneCam = SceneCamera(30.0f, 1.778f, 0.1f, 2000.0f);
+  m_Physics3D.Init();
 }
 Scene::~Scene() {}
 
@@ -71,59 +72,88 @@ Scene::~Scene() {}
     m_DestroyQueue.clear();
   }
 
+  void Scene::OnRuntimeStart(){
+    m_Physics3D.Init();
+    m_Physics3D.StartSimulation();
+  }
+  void Scene::OnRuntimeStop(){
+
+    }
+  void Scene::PhysicsUpdate(float dt) {
+    
+  }
+  
+  void Scene::OnUpdateRuntime(Timestep ts) {
+    glm::vec4 clearColor = {0.5f, 0.3f, 0.1f, 1.0f};
+    RenderCommand::SetClearColor(clearColor);
+    RenderCommand::Clear();
+
+
+    ViewEntity<Entity, Camera3DComponent>([this](auto entity, auto& comp) {
+      auto& transform = entity.template GetComponent<TransformComponent>();
+      comp.Camera.SetPerspective(30.0f, 0.1f, 2000.0f);
+      comp.Camera.SetMode(CameraMode::ThirdPerson);
+      comp.Camera.SetPosition(transform.Translation);
+      if (comp.Primary) {
+	m_MainCam = comp.Camera;
+      }
+    });
+    
+    
+
+    Renderer3D::BeginCamera(m_MainCam);
+
+    Engine::Renderer3D::RenderLight({1, 0, 0});
+
+
+    ViewEntity<Entity, ModelComponent>([this, &ts](auto entity, auto &comp) {
+      auto &transform = entity.template GetComponent<TransformComponent>();
+
+      Renderer3D::DrawModel(comp.ModelData, transform.GetTransform());
+      Renderer3D::RunAnimation(comp.AnimationData["idle"], ts);
+    });
+
+    Renderer3D::DrawCube({1, 1, 0}, {1, 1, 1}, {1, 0, 1});
+
+    m_MainCam.OnUpdate(ts);
+    ViewEntity<Entity, Camera3DComponent>([this, &ts](auto entity, auto& comp) {
+      auto& transform = entity.template GetComponent<TransformComponent>();
+      if (comp.Primary) {
+	comp.Camera.OnUpdate(ts);
+      }
+    });
+      
+
+    Renderer3D::EndCamera();
+  }
+
   void Scene::OnUpdate(Timestep ts){
     glm::vec4 clearColor = {0.5f, 0.3f, 0.1f, 1.0f};
     RenderCommand::SetClearColor(clearColor);
     RenderCommand::Clear();
 
-    if(!m_Playing)
-      m_MainCam = m_SceneCam;
-    else
-    {
-        ViewEntity<Entity, Camera3DComponent>([this](auto entity, auto& comp) {
-            auto& transform = entity.template GetComponent<TransformComponent>();
-            comp.Camera.SetPerspective(30.0f, 0.1f, 2000.0f);
-            comp.Camera.SetMode(CameraMode::ThirdPerson);
-            comp.Camera.SetPosition(transform.Translation);
-            if (comp.Primary) {
-                m_MainCam = comp.Camera;
-            }
-        });
-    }
-    
+    m_MainCam = m_SceneCam;    
 
     Renderer3D::BeginCamera(m_MainCam);
 
     Engine::Renderer3D::RenderLight({0, 0, 0});
 
-    if(!m_Playing){
-      ViewEntity<Entity, Camera3DComponent>([this](auto entity, auto& comp) {
-        auto& transform = entity.template GetComponent<TransformComponent>();
-        // Renderer3D::DrawCameraFrustum(comp.Camera);
-      });
-    }
 
-    ViewEntity<Entity, ModelComponent>([this](auto entity, auto &comp) {
+    ViewEntity<Entity, Camera3DComponent>([this](auto entity, auto& comp) {
+      auto& transform = entity.template GetComponent<TransformComponent>();
+      // Renderer3D::DrawCameraFrustum(comp.Camera);
+    });    
+
+    ViewEntity<Entity, ModelComponent>([this, &ts](auto entity, auto &comp) {
       auto &transform = entity.template GetComponent<TransformComponent>();
 
       Renderer3D::DrawModel(comp.ModelData, transform.GetTransform());
-      Renderer3D::RunAnimation(comp.AnimationData[0], 20);
+      Renderer3D::RunAnimation(comp.AnimationData["idle"], ts);
     });
 
     Renderer3D::DrawCube({1, 1, 0}, {1, 1, 1}, {1, 0, 1});
 
-    if(!m_Playing)
-      m_SceneCam.OnUpdate(ts);
-    else
-      {
-	m_MainCam.OnUpdate(ts);
-	ViewEntity<Entity, Camera3DComponent>([this, &ts](auto entity, auto& comp) {
-	  auto& transform = entity.template GetComponent<TransformComponent>();
-          if (comp.Primary) {
-            comp.Camera.OnUpdate(ts);
-	  }
-	});
-      }
+    m_SceneCam.OnUpdate(ts);
 
     Renderer3D::EndCamera();
   }

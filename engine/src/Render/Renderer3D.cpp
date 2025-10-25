@@ -370,7 +370,7 @@ namespace Engine {
     m_Shader->Bind();
     if(s_Animator->GetCurrentAnimation() != animation){
       s_Animator->PlayAnimation(animation);
-      E_CORE_INFO("[renderer3d]: Running");
+      // E_CORE_INFO("[renderer3d]: Running");
     }
 
     s_Animator->UpdateAnimation(ts);
