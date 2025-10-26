@@ -285,6 +285,20 @@ namespace Engine {
 
   }
 
+  void Renderer3D::DrawWireCube(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color, const float transparancy){
+    
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    DrawCube(position, size, color, transparancy);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+void Renderer3D::DrawWireSphere(const glm::vec3& position, const glm::vec3& scale, const glm::vec3& color, float transparancy){
+    
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    DrawSphere(position, scale, color, transparancy);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
   void Renderer3D::DrawLine(const glm::vec3& p0, const glm::vec3& p1, const glm::vec4& color) {
       
       glm::vec3 points[2] = { p0, p1 };

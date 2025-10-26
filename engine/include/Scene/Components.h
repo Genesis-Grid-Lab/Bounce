@@ -10,6 +10,8 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 
+#include "Auxiliaries/Physics.h"
+
 namespace Engine {
 
   struct IDComponent
@@ -64,12 +66,6 @@ namespace Engine {
     ModelComponent(const ModelComponent&) = default;
   };
 
-  struct  CubeComponent{
-    glm::vec3 Color;
-    CubeComponent() = default;
-    CubeComponent(const CubeComponent&) = default;
-  };
-
   struct Camera3DComponent
   {
     Camera3D Camera;
@@ -78,5 +74,69 @@ namespace Engine {
 
     Camera3DComponent() = default;
     Camera3DComponent(const Camera3DComponent&) = default;
+  };
+
+  struct CubeComponent{
+    glm::vec3 Color;
+    CubeComponent() = default;
+    CubeComponent(const CubeComponent&) = default;
+  };
+
+  struct SphereComponent{
+    glm::vec3 Color;
+    SphereComponent() = default;
+    SphereComponent(const SphereComponent&) = default;
+  };
+
+  // PHYSICS 3D
+  enum class BodyType { Static, Dynamic, Kinematic };
+  struct EShape{
+    virtual ~EShape() = default;
+    JPH::Ref<JPH::ShapeSettings> Settings;
+    JPH::RefConst<JPH::Shape> JPHShape;
+    virtual glm::vec3& GetHalfExtents() {
+        glm::vec3 null = glm::vec3(0);
+        return null; }
+    float Dirty = true;
+  protected:
+   bool box = false;
+   bool sphere = false;
+   friend class Scene;
+
+  public:
+    bool operator!() const {
+        return !box && !sphere; // returns true if Shape is null
+    }
+  };
+
+  struct BoxShape : public EShape {
+    glm::vec3 HalfExtents = glm::vec3(0.5f);
+    BoxShape(const glm::vec3& halfExtents = glm::vec3(0.5f)){
+      box = true;
+      HalfExtents = halfExtents;
+    }
+
+    glm::vec3& GetHalfExtents() override { return HalfExtents; }
+  };
+
+  struct SphereShape : public EShape {
+    float Radius = 0.5f;
+    SphereShape(float radius = 0.5f){
+      sphere = true;
+      Radius = radius;
+    }
+  };
+  struct RigidbodyComponent{
+    BodyType Type = BodyType::Static;
+    EShape* Shape;
+    float Mass = 1.0f;
+    float LinearDamp = 0.0f;
+    float AngularDamp = 0.0f;
+    bool Continuous = false; // CCD for fast movers
+    float GravityFactor = 1.0f;
+    JPH::BodyID ID{};
+
+    RigidbodyComponent() = default;
+    RigidbodyComponent(const RigidbodyComponent&) = default;
   };
 }

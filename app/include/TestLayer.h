@@ -26,7 +26,7 @@ public:
     auto MainModel = scene->CreateEntity("sponza");
     MainModel.AddComponent<Engine::ModelComponent>().ModelData = model;
     auto &modelT = MainModel.GetComponent<Engine::TransformComponent>();
-    
+    modelT.Scale = glm::vec3(0.2f);
 
     cam = scene->CreateEntity("cam");
     auto& cc = cam.AddComponent<Engine::Camera3DComponent>();
@@ -34,17 +34,30 @@ public:
     auto& tc = cam.GetComponent<Engine::TransformComponent>().Translation;
     tc = {0, 0, 2};
 
-    auto manEntt = scene->CreateEntity("Man");
+    manEntt = scene->CreateEntity("Man");
     auto& manTC = manEntt.GetComponent<Engine::TransformComponent>();
     manTC.Translation = {1, 2, 0};
-    manTC.Scale = glm::vec3(0.1f);
+    // manTC.Scale = glm::vec3(0.1f);
     manTC.Rotation = {0, glm::radians(180.0f), 0};
+    auto& rgbc = manEntt.AddComponent<Engine::RigidbodyComponent>();
+    rgbc.Type = Engine::BodyType::Dynamic;
+    rgbc.Shape = new Engine::BoxShape({1.0f,1.0f,1.0f});
     auto& manModel = manEntt.AddComponent<Engine::ModelComponent>();
     manModel.ModelData = Man;
     manModel.AnimationData["idle"] = ManAnim;
     // manModel.AnimationData["run"] = runAnim;
-    // manModel.AnimationData["jump"] = jumpAnim;    
+    // manModel.AnimationData["jump"] = jumpAnim;
     
+
+    auto cubeMod = scene->CreateEntity("cube");
+    cubeMod.AddComponent<Engine::CubeComponent>().Color = {1, 0, 1};
+    auto &cubetc = cubeMod.GetComponent<Engine::TransformComponent>();
+    cubetc.Translation = {1, 1, 0};
+
+    auto sphereMod = scene->CreateEntity("sphere");
+    sphereMod.AddComponent<Engine::SphereComponent>().Color = {0.5f, 0.1f, 0.7f};
+    auto &spheretc = sphereMod.GetComponent<Engine::TransformComponent>();
+    cubetc.Translation = {2, 1, 1};
   }
   virtual void OnDetach() override { }
   virtual void OnUpdate(Timestep ts) override {
@@ -58,34 +71,57 @@ public:
       break;
     }
 
-    if (Engine::Input::IsKeyJustPressed(Key::Space)) {
-      switch (m_SceneState) {
-      case Engine::SceneState::Edit:
-	E_INFO("Change to play");
-        m_SceneState = Engine::SceneState::Play;
-	break;
-      case Engine::SceneState::Play:
-	E_INFO("Change to edit");
-	m_SceneState = Engine::SceneState::Edit;
-	break;
-      }
-    }
+    // if (Engine::Input::IsKeyJustPressed(Key::Space)) {
+    //   switch (m_SceneState) {
+    //   case Engine::SceneState::Edit:
+	// E_INFO("Change to play");
+    //     m_SceneState = Engine::SceneState::Play;
+	// break;
+    //   case Engine::SceneState::Play:
+	// E_INFO("Change to edit");
+	// m_SceneState = Engine::SceneState::Edit;
+	// break;
+    //   }
+    // }
 
     auto &cc = cam.GetComponent<Engine::Camera3DComponent>();
     cc.Camera.SetTarget(target);
   }
   virtual void OnImGuiRender() override {
     auto &tc = cam.GetComponent<Engine::TransformComponent>().Translation;
+    auto &manTc = manEntt.GetComponent<Engine::TransformComponent>().Translation;
     ImGui::Begin("Properties");
     DrawVec3Control("CamMove", tc);
     DrawVec3Control("Target", target);
+
+    DrawVec3Control("Man Pos", manTc);
+
+    if(ImGui::Button("PLAY/STOP", {90, 20})){
+        if(m_SceneState == Engine::SceneState::Edit)
+            OnScenePlay();
+        else if (m_SceneState == Engine::SceneState::Play)
+            OnSceneStop();
+    }
     ImGui::End();
   }
+
+private:
+ void OnScenePlay(){
+    m_SceneState = Engine::SceneState::Play;
+    scene->OnRuntimeStart();
+ }
+ void OnSceneStop(){
+    if(m_SceneState != Engine::SceneState::Play)
+        return;
+    m_SceneState = Engine::SceneState::Edit;
+    scene->OnRuntimeStop();
+ }
 
 private:
   Engine::SceneState m_SceneState = Engine::SceneState::Edit;
   Engine::Ref<Engine::Model> model;
   Engine::Ref<Engine::Scene> scene;
   Engine::Entity cam;
-  glm::vec3 target;
+  Engine::Entity manEntt;
+  glm::vec3 target = glm::vec3(0.0f);
 };

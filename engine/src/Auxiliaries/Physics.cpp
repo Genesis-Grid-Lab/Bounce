@@ -2,6 +2,8 @@
 #include "Core/E_Assert.h"
 #include "Auxiliaries/Physics.h"
 
+using uint = unsigned int;
+
 namespace Engine {
 
   // Callback for traces, connect this to your own trace function if you have one
@@ -126,16 +128,16 @@ namespace Engine {
 
   bool PhysicsEngine::Step(float dt){
     if (!m_Physics) return false;
+  
     m_Accumulator += dt;
     bool simulated = false;
 
     // clamp to avoid spiral of death
     const float maxFrame = 0.25f;
-    if (m_Accumulator > maxFrame) m_Accumulator = maxFrame;
-
+    if (m_Accumulator > maxFrame) m_Accumulator = maxFrame;      
     while (m_Accumulator >= m_FixedStep) {
       m_Physics->Update(m_FixedStep, 1, m_Temp_alloc.get(), m_Jobs.get());
-      m_Accumulator -= m_FixedStep;
+      m_Accumulator -= m_FixedStep;      
       simulated = true;
     }
     E_CORE_INFO("[PHYSICS ENGINE]: {}", m_Accumulator);    

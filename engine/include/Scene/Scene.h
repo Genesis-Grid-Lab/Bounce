@@ -48,8 +48,10 @@ public:
 
 private:
   template <typename T> void OnComponentAdded(Entity entity, T &component);
+  void BuildRigidBodyForEntity(Entity e);
+  void BuildShape();
 
-private:
+ private:
   PhysicsEngine m_Physics3D;
   entt::registry m_Registry;
   std::vector<entt::entity> m_DestroyQueue;

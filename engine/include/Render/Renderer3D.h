@@ -31,6 +31,8 @@ namespace Engine {
     static void DrawModel(const Ref<Model>& model,const glm::mat4& transform, const glm::vec3& color = glm::vec3(1), const float transparancy = 1.0f/*, int entityID = -1*/);
     static void DrawModel(const Ref<Model>& model,const glm::vec3& position,const glm::vec3& size = glm::vec3(1.0f), const glm::vec3& color = glm::vec3(1), const float transparancy = 1.0f);
 
+    static void DrawWireCube(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color = glm::vec3(1), const float transparancy = 1.0f);
+        static void DrawWireSphere(const glm::vec3& position, const glm::vec3& scale, const glm::vec3& color = glm::vec3(1), float transparancy = 1.0f);
     static void DrawLine(const glm::vec3& p0, const glm::vec3& p1, const glm::vec4& color);
     static void DrawCameraFrustum(const Camera3D &cam);
 
