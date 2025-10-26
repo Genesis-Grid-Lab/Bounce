@@ -15,6 +15,7 @@ namespace Engine {
 
 Scene::Scene() {
   m_SceneCam = SceneCamera(30.0f, 1.778f, 0.1f, 2000.0f);
+  m_Physics3D.Init();
 }
 Scene::~Scene() {}
 
@@ -171,7 +172,7 @@ Scene::~Scene() {}
   void Scene::BuildShape(){
       ViewEntity<Entity, RigidbodyComponent>([this](auto entity, auto& rbc){
         
-        auto& tr = entity.GetComponent<TransformComponent>();
+        auto& tr = entity.template GetComponent<TransformComponent>();
         auto& EShape = rbc.Shape;
         if(!EShape){
           E_CORE_ERROR("No SHape in rigid body component: {}", entity.GetName());
@@ -403,8 +404,8 @@ Scene::~Scene() {}
 
           if(!comp.Shape->JPHShape || comp.Shape->Dirty)
           {
-            // comp.Shape->JPHShape = BuildBox({0.5f, 0.5f, 0.5f});
-            // comp.Shape->Dirty = false;            
+            comp.Shape->JPHShape = BuildBox({0.5f, 0.5f, 0.5f});
+            comp.Shape->Dirty = false;            
           }
           if(comp.Shape->JPHShape){
             const auto& box = comp.Shape->JPHShape->GetLocalBounds();
