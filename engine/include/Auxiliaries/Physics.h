@@ -20,6 +20,8 @@
 #include <Jolt/Core/JobSystemThreadPool.h>
 #include <Jolt/Core/TempAllocator.h>
 #include <Jolt/Math/Real.h>
+#include <Jolt/Physics/Collision/Shape/MeshShape.h>
+#include <Jolt/Physics/Body/BodyCreationSettings.h>
 
 namespace Engine {
 // Local Helper
@@ -63,7 +65,7 @@ namespace Engine {
     const JPH::Quat rq = xf.GetRotation().GetQuaternion();  // Jolt rotation
     const glm::quat gq((float)rq.GetW(), (float)rq.GetX(), (float)rq.GetY(), (float)rq.GetZ());
     outEuler = glm::eulerAngles(gq); // radians
-  }
+  }  
 
   // Layer that objects can be in, determines which other objects it can collide
   // with Typically you at least want to have 1 layer for moving bodies and 1
@@ -275,4 +277,101 @@ namespace Engine {
     float m_Accumulator = 0.0f;
     float m_FixedStep   = 1.0f / 60.0f;
   };
+
+
+  static inline JPH::Ref<JPH::Shape> CreateTriangleMeshShape(const std::vector<glm::vec3>& positions,
+                                             const std::vector<uint32_t>& indices, const glm::vec3& scale = glm::vec3(1.0f)){
+    using namespace JPH;
+
+    if (positions.empty() || indices.empty() || (indices.size() % 3) != 0) {
+        E_CORE_ERROR("CreateTriangleMeshShape: invalid mesh (empty or indices % 3 != 0)");
+        return nullptr;
+    }
+
+    // Build Jolt vertex list and apply scale
+    VertexList joltVerts;
+    joltVerts.reserve(positions.size());
+    for (const auto &p : positions) {
+        joltVerts.push_back(Float3(p.x * scale.x, p.y * scale.y, p.z * scale.z));
+    }
+
+    // Build indexed triangle list (use material index 0)
+    IndexedTriangleList joltTris;
+    joltTris.reserve(indices.size() / 3);
+    for (size_t i = 0; i + 2 < indices.size(); i += 3) {
+        uint32_t i0 = indices[i + 0];
+        uint32_t i1 = indices[i + 1];
+        uint32_t i2 = indices[i + 2];
+
+        if (i0 >= joltVerts.size() || i1 >= joltVerts.size() || i2 >= joltVerts.size()) {
+            E_CORE_WARN("CreateTriangleMeshShape: skipping triangle with out-of-range index ({}, {}, {})", i0, i1, i2);
+            continue;
+        }
+
+        // Note: Jolt expects indices in counter-clockwise order for triangle orientation.
+        joltTris.push_back(IndexedTriangle(i0, i1, i2, /*materialIndex=*/0));
+    }
+
+    if (joltTris.empty()) {
+        E_CORE_ERROR("CreateTriangleMeshShape: no valid triangles found after processing indices");
+        return nullptr;
+    }
+
+    // Construct settings
+    MeshShapeSettings settings(joltVerts, joltTris);
+
+    // Optional tuning:
+    // settings.mBuildQuality = MeshShapeSettings::EBuildQuality::FavorRuntimePerformance;
+    // settings.mMaxTrianglesPerLeaf = 8;
+
+    // Create() returns JPH::Result<JPH::Ref<JPH::Shape>>
+    auto shapeResult = settings.Create();
+    // if (!shapeResult) {
+    //     E_CORE_ERROR("CreateTriangleMeshShape: MeshShapeSettings::Create() failed");
+    //     return nullptr;
+    // }
+
+    JPH::Ref<JPH::Shape> shape = shapeResult.Get();
+    if (!shape) {
+        E_CORE_ERROR("CreateTriangleMeshShape: created shape is null");
+        return nullptr;
+    }
+
+    return shape;                                                    
+
+  }
+
+  static inline JPH::BodyID CreateStaticBodyFromMesh(PhysicsEngine& physics,
+                                                const std::vector<glm::vec3>& vertices,
+                                                const std::vector<uint32_t>& indices,
+                                                const glm::vec3& scale = glm::vec3(1.0f)){
+   if (indices.empty() || vertices.empty()) {
+        E_CORE_ERROR("CreateStaticBodyFromMesh: empty vertices/indices");
+        return JPH::BodyID();
+    }
+
+    auto shape = CreateTriangleMeshShape(vertices, indices, scale);
+    if (!shape) {
+        E_CORE_ERROR("CreateStaticBodyFromMesh: failed to build shape");
+        return JPH::BodyID();
+    }
+
+    // Create static body settings (placed at origin; you can pass a different transform if needed)
+    JPH::BodyCreationSettings bcs(shape, JPH::RVec3::sZero(), JPH::Quat::sIdentity(),
+                                  JPH::EMotionType::Static, Layers::NON_MOVING);
+    bcs.mAllowSleeping = false;
+
+    // Use the BodyInterface helper that returns a BodyID (CreateAndAddBody)
+    JPH::BodyInterface& bi = physics.Bodies();
+
+    // CreateAndAddBody returns JPH::BodyID (use DontActivate for static)
+    JPH::BodyID bodyId = bi.CreateAndAddBody(bcs, JPH::EActivation::DontActivate);
+    if (bodyId.IsInvalid()) {
+        E_CORE_ERROR("CreateStaticBodyFromMesh: CreateAndAddBody returned invalid BodyID");
+        return JPH::BodyID();
+    }
+
+    E_CORE_INFO("CreateStaticBodyFromMesh: created static body id {}", (unsigned)bodyId.GetIndexAndSequenceNumber());
+    return bodyId;
+  }
 }

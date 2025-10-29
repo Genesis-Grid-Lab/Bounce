@@ -101,6 +101,7 @@ namespace Engine {
   protected:
    bool box = false;
    bool sphere = false;
+   bool mesh = false;
    friend class Scene;
 
   public:
@@ -126,6 +127,16 @@ namespace Engine {
       Radius = radius;
     }
   };
+
+  struct MeshShape : public EShape{
+    std::string SourceModelPath;
+    int MeshIndex = -1;
+    glm::vec3 Scale = glm::vec3(1.0f);
+    bool Created = false;
+    MeshShape(){
+      mesh = true;
+    }
+  };
   struct RigidbodyComponent{
     BodyType Type = BodyType::Static;
     EShape* Shape;
@@ -139,4 +150,6 @@ namespace Engine {
     RigidbodyComponent() = default;
     RigidbodyComponent(const RigidbodyComponent&) = default;
   };
+
+
 }

@@ -7,7 +7,7 @@
 #include "Render/RenderCommand.h"
 #include "Auxiliaries/Physics.h"
 #include "Core/E_Assert.h"
-#include <Jolt/Physics/Body/BodyCreationSettings.h>
+
 
 using uint = unsigned int;
 
@@ -339,6 +339,12 @@ Scene::~Scene() {}
 
     ViewEntity<Entity, CubeComponent>([this](auto entity, auto& comp){
       auto &transform = entity.template GetComponent<TransformComponent>();
+      if(entity.template HasComponent<RigidbodyComponent>()){
+        auto& rbc = entity.template GetComponent<RigidbodyComponent>();
+        if(rbc.Shape->box){
+          dynamic_cast<BoxShape*>(rbc.Shape)->HalfExtents = transform.Scale;
+        }
+      }
       Renderer3D::DrawCube(transform.GetTransform(), comp.Color);
     });
 
@@ -387,6 +393,12 @@ Scene::~Scene() {}
     
     ViewEntity<Entity, CubeComponent>([this](auto entity, auto& comp){
       auto &transform = entity.template GetComponent<TransformComponent>();
+      if(entity.template HasComponent<RigidbodyComponent>()){
+        auto& rbc = entity.template GetComponent<RigidbodyComponent>();
+        if(rbc.Shape->box){
+          dynamic_cast<BoxShape*>(rbc.Shape)->HalfExtents = transform.Scale * 0.5f;
+        }
+      }
       Renderer3D::DrawCube(transform.GetTransform(), comp.Color);
     });
 
@@ -396,15 +408,17 @@ Scene::~Scene() {}
     });
 
     // BuildShape();
+    JPH::BodyInterface &bi = m_Physics3D.Bodies();
 
-    ViewEntity<Entity, RigidbodyComponent>([this](auto entity, auto& comp){
+    ViewEntity<Entity, RigidbodyComponent>([&](auto entity, auto& comp){
       auto &transform = entity.template GetComponent<TransformComponent>();
       if(comp.Shape){
         if(comp.Shape->box){
 
           if(!comp.Shape->JPHShape || comp.Shape->Dirty)
           {
-            comp.Shape->JPHShape = BuildBox({0.5f, 0.5f, 0.5f});
+            comp.Shape->JPHShape = BuildBox(dynamic_cast<BoxShape*>(comp.Shape)->HalfExtents);
+            bi.SetShape(comp.ID, comp.Shape->JPHShape, true, JPH::EActivation::Activate);
             comp.Shape->Dirty = false;            
           }
           if(comp.Shape->JPHShape){

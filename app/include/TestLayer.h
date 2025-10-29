@@ -49,8 +49,11 @@ public:
     // manModel.AnimationData["jump"] = jumpAnim;
     
 
-    auto cubeMod = scene->CreateEntity("cube");
+    cubeMod = scene->CreateEntity("cube");
     cubeMod.AddComponent<Engine::CubeComponent>().Color = {1, 0, 1};
+    auto& cubeRbc = cubeMod.AddComponent<Engine::RigidbodyComponent>();
+    cubeRbc.Type = Engine::BodyType::Static;
+    cubeRbc.Shape = new Engine::BoxShape();
     auto &cubetc = cubeMod.GetComponent<Engine::TransformComponent>();
     cubetc.Translation = {1, 1, 0};
 
@@ -90,11 +93,20 @@ public:
   virtual void OnImGuiRender() override {
     auto &tc = cam.GetComponent<Engine::TransformComponent>().Translation;
     auto &manTc = manEntt.GetComponent<Engine::TransformComponent>().Translation;
+    auto& cubeModTc = cubeMod.GetComponent<Engine::TransformComponent>();
     ImGui::Begin("Properties");
+    ImGui::Text("Camera");
     DrawVec3Control("CamMove", tc);
     DrawVec3Control("Target", target);
-
+    ImGui::Separator();
+    ImGui::Text("Man");
     DrawVec3Control("Man Pos", manTc);
+    ImGui::Separator();
+    ImGui::Text("Cube");
+    DrawVec3Control("Pos", cubeModTc.Translation);
+    if(DrawVec3Control("Scale", cubeModTc.Scale)){
+        cubeMod.GetComponent<Engine::RigidbodyComponent>().Shape->Dirty = true;
+    }
 
     if(ImGui::Button("PLAY/STOP", {90, 20})){
         if(m_SceneState == Engine::SceneState::Edit)
@@ -123,5 +135,6 @@ private:
   Engine::Ref<Engine::Scene> scene;
   Engine::Entity cam;
   Engine::Entity manEntt;
+  Engine::Entity cubeMod;
   glm::vec3 target = glm::vec3(0.0f);
 };
