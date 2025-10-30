@@ -5,7 +5,7 @@
 #include "Render/Camera.h"
 #include "SceneCamera.h"
 #include <entt/entt.hpp>
-#include "Auxiliaries/Physics.h"
+#include "Auxiliaries/Jolt/JoltPhysics.h"
 
 namespace Engine {
 
@@ -52,7 +52,7 @@ private:
   void BuildShape();
 
  private:
-  PhysicsEngine m_Physics3D;
+  JoltPhysicsEngine m_Physics3D;
   entt::registry m_Registry;
   std::vector<entt::entity> m_DestroyQueue;
   SceneCamera m_SceneCam;

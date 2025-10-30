@@ -10,7 +10,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 
-#include "Auxiliaries/Physics.h"
+#include "Auxiliaries/Jolt/JoltPhysics.h"
 
 namespace Engine {
 

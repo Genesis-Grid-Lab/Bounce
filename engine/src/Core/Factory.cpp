@@ -6,7 +6,6 @@
 #include "Core/E_Assert.h"
 
 //temp
-#include "Window/GLFW/GlfwWindow.h"
 #if defined(WINDOW_BACKEND_GLFW)
   #include "Window/GLFW/GlfwWindow.h"
 #elif defined(WINDOW_BACKEND_NATIVE)
@@ -64,8 +63,8 @@ Scope<Window> Factory::NewWindow() {
     switch(s_Desc.Graphics_API){
     case GraphicsAPI::OpenGL:
       return CreateScope<GLRendererAPI>();
-    case GraphicsAPI::Vulkan:
-      return CreateScope<VulkanRendererAPI>();
+    // case GraphicsAPI::Vulkan:
+    //   return CreateScope<VulkanRendererAPI>();
     }
 
     E_CORE_ASSERT(false, "No graphics backend selected");

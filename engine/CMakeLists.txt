@@ -9,21 +9,22 @@ else()
 endif()
 
 if(WINDOW_BACKEND_GLFW)
+  add_definitions(-DWINDOW_BACKEND_GLFW)
   file(GLOB_RECURSE nativeFile)
   file(GLOB_RECURSE androidFile)
   file(GLOB_RECURSE iosFile)
   file(GLOB_RECURSE glfwFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Window/GLFW/*.cpp)
-elseif(WINDOW_BACKEND STREQUAL "native")
+elseif(WINDOW_BACKEND_NATIVE)
   file(GLOB_RECURSE nativeFile ${CMAKE_CURRENT_SOURCE_DIR}/src/window/native/*.cpp)
   file(GLOB_RECURSE glfwFile)
   file(GLOB_RECURSE androidFile)
   file(GLOB_RECURSE iosFile)
-elseif(WINDOW_BACKEND STREQUAL "android")
+elseif(WINDOW_BACKEND_ANDROID)
   file(GLOB_RECURSE nativeFile)
   file(GLOB_RECURSE glfwFile)
   file(GLOB_RECURSE androidFile  ${CMAKE_CURRENT_SOURCE_DIR}/src/window/android/*.cpp)
   file(GLOB_RECURSE iosFile)
-elseif(WINDOW_BACKEND STREQUAL "ios")
+elseif(WINDOW_BACKEND_IOS)
   file(GLOB_RECURSE nativeFile)
   file(GLOB_RECURSE glfwFile)
   file(GLOB_RECURSE androidFile)
@@ -37,10 +38,23 @@ file(GLOB core ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/*.cpp)
 file(GLOB render ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/*.cpp)
 file(GLOB scene ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/*.cpp)
 file(GLOB_RECURSE headers ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
-file(GLOB_RECURSE vulkanFiles ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/Vulkan/*.cpp)
-file(GLOB gladFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/glad/*.cpp)
+if(USE_VULKAN)
+  file(GLOB_RECURSE vulkanFiles ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/Vulkan/*.cpp)
+else()
+  file(GLOB_RECURSE vulkanFiles)
+endif()
+
+if(USE_GLAD)
+  file(GLOB gladFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Render/glad/*.cpp)
+else()
+  file(GLOB gladFile)
+endif()
 file(GLOB animFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Animation/*.cpp)
-file(GLOB physFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Auxiliaries/*.cpp)
+if(PHYSICS_BACKEND_JOLT)
+  file(GLOB_RECURSE joltphysFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Auxiliaries/Jolt/*.cpp)
+else()
+  file(GLOB_RECURSE joltphysFile)
+endif()
 add_library(${PROJECT_NAME}
   ${core} ${headers}
   ${render}
@@ -52,7 +66,7 @@ add_library(${PROJECT_NAME}
   ${gladFile}
   ${scene}
   ${animFile}
-  ${physFile}
+  ${joltphysFile}
   )
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/epch.h)
